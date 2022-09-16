@@ -1,4 +1,4 @@
-package com.broeskamp.postident.dto.request
+package com.broeskamp.postident.dto
 
 data class CustomData(
     /**

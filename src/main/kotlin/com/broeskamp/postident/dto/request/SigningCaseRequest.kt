@@ -1,5 +1,7 @@
 package com.broeskamp.postident.dto.request
 
+import com.broeskamp.postident.dto.CustomData
+
 /**
  * DTO to create a new SigningCase
  */
