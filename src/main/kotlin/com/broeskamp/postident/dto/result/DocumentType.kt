@@ -1,0 +1,21 @@
+package com.broeskamp.postident.dto.result
+
+/**
+ * Type of document. Represented as Number
+ *
+ * @sample "1"
+ */
+enum class DocumentType {
+    ID_CARD,
+    PASSPORT,
+    RESIDENCE_TITLE,
+    TEMPORARY_ID_CARD,
+    TEMPORARY_PASSPORT,
+    CONVENTION_TRAVEL_DOCUMENT,
+    CONVENTION_TRAVEL_DOCUMENT_REFUGEE,
+    CONVENTION_TRAVEL_DOCUMENT_FOREIGNER,
+    SERVICE_PASSPORT,
+    DIPLOMATIC_PASSPORT,
+    OFFICIAL_PASSPORT,
+    OFFICIAL_OR_DIPLOMATIC_PASSPORT,
+}
