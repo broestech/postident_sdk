@@ -11,6 +11,10 @@ import java.net.http.HttpRequest
 import java.net.http.HttpRequest.BodyPublishers
 import java.net.http.HttpResponse.BodyHandlers
 
+private const val CONTENT_TYPE_HEADER_NAME: String = "Content-Type"
+private const val CONTENT_TYPE_HEADER_VALUE: String = "application/json"
+private const val AUTHORIZATION_HEADER_NAME: String = "Authorization"
+
 class PostIdentApi(private val config: PostIdentConfiguration) {
 
     private val mapper: ObjectMapper = jacksonObjectMapper()
@@ -36,7 +40,7 @@ class PostIdentApi(private val config: PostIdentConfiguration) {
 
     private fun getHttpRequestBuilder(): HttpRequest.Builder {
         return HttpRequest.newBuilder()
-            .header(config.contentTypeHeaderName, config.contentTypeHeaderValue)
-            .header(config.authorizationHeaderName, config.getAuthValue())
+            .header(CONTENT_TYPE_HEADER_NAME, CONTENT_TYPE_HEADER_VALUE)
+            .header(AUTHORIZATION_HEADER_NAME, config.authHeaderValue)
     }
 }
