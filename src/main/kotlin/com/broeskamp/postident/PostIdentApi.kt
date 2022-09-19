@@ -11,7 +11,7 @@ import java.net.http.HttpRequest
 import java.net.http.HttpRequest.BodyPublishers
 import java.net.http.HttpResponse.BodyHandlers
 
-class PostIdent(private val config: PostIdentConfiguration) {
+class PostIdentApi(private val config: PostIdentConfiguration) {
 
     private val mapper: ObjectMapper = jacksonObjectMapper()
     private val httpClient: HttpClient = HttpClient.newHttpClient()
