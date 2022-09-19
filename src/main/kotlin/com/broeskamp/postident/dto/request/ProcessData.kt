@@ -24,14 +24,7 @@ data class ProcessData(
      */
     val targetCountry: String?,
 
-    /**
-     * Preferred language of the user. Possible values: DE_DE, EN_UK. If not provided, E-Signing application will set the default value DE_DE. NOTE: EN_UK not yet supported. = ['DE_DE', 'EN_UK']
-     *
-     * Max length: 5
-     *
-     * @sample "DE_DE"
-     */
-    val preferredLanguage: String?,
+    val preferredLanguage: PreferredLanguage?,
 
     /**
      * URL for push notifications back to your application. The URL will be called via POST request. Parameter is application/json with the body {"caseId"="##caseId##"}
