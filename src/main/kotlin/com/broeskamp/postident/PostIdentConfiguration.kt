@@ -3,7 +3,7 @@ package com.broeskamp.postident
 import java.util.*
 
 
-class PostIdentConfiguration(
+data class PostIdentConfiguration(
     private var username: String,
     private var password: String,
     private var clientId: String,
