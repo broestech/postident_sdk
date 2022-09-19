@@ -38,9 +38,9 @@ class PostIdentApi(private val config: PostIdentConfiguration) {
         }
     }
 
-    private fun getHttpRequestBuilder(): HttpRequest.Builder {
-        return HttpRequest.newBuilder()
+    private fun getHttpRequestBuilder(): HttpRequest.Builder =
+        HttpRequest.newBuilder()
             .header(CONTENT_TYPE_HEADER_NAME, CONTENT_TYPE_HEADER_VALUE)
             .header(AUTHORIZATION_HEADER_NAME, config.authHeaderValue)
-    }
+
 }
