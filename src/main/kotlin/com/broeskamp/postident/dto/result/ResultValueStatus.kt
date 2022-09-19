@@ -1,5 +1,7 @@
 package com.broeskamp.postident.dto.result
 
+import com.fasterxml.jackson.annotation.JsonProperty
+
 /**
  * Possible outcomes:
  *
@@ -9,8 +11,15 @@ package com.broeskamp.postident.dto.result
  * - change: value was modified during identification process
  */
 enum class ResultValueStatus {
+    @JsonProperty("unchecked")
     UNCHECKED,
+
+    @JsonProperty("new")
     NEW,
+
+    @JsonProperty("match")
     MATCH,
+
+    @JsonProperty("change")
     CHANGE,
 }
