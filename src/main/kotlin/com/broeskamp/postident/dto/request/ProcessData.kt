@@ -88,6 +88,6 @@ data class ProcessData(
      * 4. Unterschreiben
      * 5. Kostenpflichtig kaufen
      */
-    val signingButtonLabel: Int?,
+    val signingButtonLabel: SigningButtonLabel?,
 
     )
