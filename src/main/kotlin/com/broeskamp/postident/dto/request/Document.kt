@@ -51,7 +51,7 @@ data class Document(
     /**
      * base64 binary document data
      *
-     * Max size: 5mb
+     * Max size: 5MB
      *
      * @sample "TWFuIG...VyZS4="
      */
