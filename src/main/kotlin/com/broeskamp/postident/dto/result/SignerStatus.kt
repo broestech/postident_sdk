@@ -18,6 +18,6 @@ enum class SignerStatus {
     @JsonProperty("finished")
     FINISHED,
 
-    @JsonProperty("declined'")
+    @JsonProperty("declined")
     DECLINED
 }
