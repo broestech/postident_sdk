@@ -1,5 +1,8 @@
 package com.broeskamp.postident.dto.response
 
+import com.thinkinglogic.builder.annotation.Builder
+
+@Builder
 data class SigningCaseResponse(
 
     /**

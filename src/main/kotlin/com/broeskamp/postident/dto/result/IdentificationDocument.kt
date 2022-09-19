@@ -1,7 +1,9 @@
 package com.broeskamp.postident.dto.result
 
+import com.thinkinglogic.builder.annotation.Builder
 import java.time.LocalDate
 
+@Builder
 data class IdentificationDocument(
     val type: DocumentType,
 

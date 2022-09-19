@@ -1,7 +1,9 @@
 package com.broeskamp.postident.dto.result
 
+import com.thinkinglogic.builder.annotation.Builder
 import java.time.Instant
 
+@Builder
 data class SignerResult(
 
     /**
@@ -112,5 +114,5 @@ data class SignerResult(
      * Indexes of the documents signed by the given signer. The indexes are pointers in the documents list of the case. First document in the list has the position 1.
      */
     val signedDocuments: List<Number>,
-    
+
     )

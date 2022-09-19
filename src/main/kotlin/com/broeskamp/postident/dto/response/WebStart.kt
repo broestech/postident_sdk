@@ -1,5 +1,8 @@
 package com.broeskamp.postident.dto.response
 
+import com.thinkinglogic.builder.annotation.Builder
+
+@Builder
 data class WebStart(
     /**
      * URL to redirect the browser of the user from your web portal to the E-Signing portal. The redirection must be executed as a HTTP Post that contains a JSON Web Token

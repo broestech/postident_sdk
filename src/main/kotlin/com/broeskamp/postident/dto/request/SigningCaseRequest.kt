@@ -1,16 +1,19 @@
 package com.broeskamp.postident.dto.request
 
 import com.broeskamp.postident.dto.CustomData
+import com.thinkinglogic.builder.annotation.Builder
+
 
 /**
  * DTO to create a new SigningCase
  */
+@Builder
 data class SigningCaseRequest(
 
     /**
      * Custom properties which will be sent back along with the result data
      */
-    val customData: CustomData,
+    val customData: CustomData?,
 
     /**
      * Properties which control the behavior, such as callback URLs.

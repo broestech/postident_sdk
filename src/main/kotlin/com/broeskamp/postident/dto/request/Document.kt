@@ -1,5 +1,8 @@
 package com.broeskamp.postident.dto.request
 
+import com.thinkinglogic.builder.annotation.Builder
+
+@Builder
 data class Document(
 
     /**

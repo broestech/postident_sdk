@@ -1,12 +1,14 @@
 package com.broeskamp.postident.dto.result
 
 import com.broeskamp.postident.dto.CustomData
+import com.thinkinglogic.builder.annotation.Builder
 import java.time.Instant
 import java.time.LocalDate
 
 /**
  * DTO received when requesting result of signing case
  */
+@Builder
 data class SigningCaseResult(
 
     /**

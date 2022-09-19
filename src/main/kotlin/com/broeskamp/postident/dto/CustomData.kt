@@ -1,5 +1,8 @@
 package com.broeskamp.postident.dto
 
+import com.thinkinglogic.builder.annotation.Builder
+
+@Builder
 data class CustomData(
     /**
      * Custom text field in order to pass your own identifiers, labels etc. You will get this information back in the result data.

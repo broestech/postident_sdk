@@ -1,8 +1,11 @@
 package com.broeskamp.postident.dto.request
 
+import com.thinkinglogic.builder.annotation.Builder
+
 /**
  * The size of the signature stamp is 72,5 mm x 24,0 mm. The signature stamp expands from the top left corner.
  */
+@Builder
 data class SignatureStampPosition(
     /**
      * the signature page index

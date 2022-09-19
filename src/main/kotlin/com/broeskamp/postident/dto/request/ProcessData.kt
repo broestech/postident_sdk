@@ -1,7 +1,9 @@
 package com.broeskamp.postident.dto.request
 
+import com.thinkinglogic.builder.annotation.Builder
 import java.time.LocalDate
 
+@Builder
 data class ProcessData(
     /**
      *
