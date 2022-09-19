@@ -1,5 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+val jacksonVersion = "2.13.4"
+val builderVersion = "1.2.1"
 
 plugins {
     `maven-publish`
@@ -13,11 +15,11 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.4")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.4")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.4")
-    implementation("com.thinkinglogic.builder:kotlin-builder-annotation:1.2.1")
-    kapt("com.thinkinglogic.builder:kotlin-builder-processor:1.2.1")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
+    implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
+    implementation("com.thinkinglogic.builder:kotlin-builder-annotation:$builderVersion")
+    kapt("com.thinkinglogic.builder:kotlin-builder-processor:$builderVersion")
 }
 
 tasks.test {
