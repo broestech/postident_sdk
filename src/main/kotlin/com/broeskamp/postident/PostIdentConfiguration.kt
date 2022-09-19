@@ -4,18 +4,20 @@ import java.util.*
 
 
 data class PostIdentConfiguration(
-    private var username: String,
-    private var password: String,
-    private var clientId: String,
+    private val username: String,
+    private val password: String,
+    private val clientId: String,
+    private val baseUrl: String,
 ) {
 
-    val CONTENT_TYPE_HEADER_NAME: String = "Content-Type"
-    val CONTENT_TYPE_HEADER_VALUE: String = "application/json"
+    val contentTypeHeaderName: String = "Content-Type"
+    val contentTypeHeaderValue: String = "application/json"
 
-    val AUTHORIZATION_HEADER_NAME: String = "Authorization"
+    val authorizationHeaderName: String = "Authorization"
 
-    private val BASE_URL: String = "https://postident.deutschepost.de/api/"
-    private val SIGNING_PATH: String = "scr-signing/v2/"
+    private val signingPath: String = "scr-signing/v2/"
+
+    val signingUri = "$baseUrl$signingPath$clientId/signingcases"
 
     fun getAuthValue(): String {
         val authData =
@@ -23,7 +25,5 @@ data class PostIdentConfiguration(
         return "Basic %s".format(authData)
     }
 
-    fun getSigningUri(): String {
-        return "$BASE_URL$SIGNING_PATH$clientId/signingcases"
-    }
+
 }

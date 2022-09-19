@@ -18,7 +18,7 @@ class PostIdentApi(private val config: PostIdentConfiguration) {
 
     fun createSigningCase(signingCaseRequest: SigningCaseRequest): SigningCaseResponse {
         val request = getHttpRequestBuilder()
-            .uri(URI.create(config.getSigningUri()))
+            .uri(URI.create(config.signingUri))
             .POST(BodyPublishers.ofString(mapper.writeValueAsString(signingCaseRequest)))
             .build()
         return executeRequest(request, SigningCaseResponse::class.java)
@@ -36,7 +36,7 @@ class PostIdentApi(private val config: PostIdentConfiguration) {
 
     private fun getHttpRequestBuilder(): HttpRequest.Builder {
         return HttpRequest.newBuilder()
-            .header(config.CONTENT_TYPE_HEADER_NAME, config.CONTENT_TYPE_HEADER_VALUE)
-            .header(config.AUTHORIZATION_HEADER_NAME, config.getAuthValue())
+            .header(config.contentTypeHeaderName, config.contentTypeHeaderValue)
+            .header(config.authorizationHeaderName, config.getAuthValue())
     }
 }
