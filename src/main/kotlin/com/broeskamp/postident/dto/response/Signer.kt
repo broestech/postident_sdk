@@ -9,7 +9,7 @@ data class Signer(
      *
      * @sample "1"
      */
-    val signerNumber: String,
+    val signerNumber: Number,
 
     val webStart: WebStart,
 )
