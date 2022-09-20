@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 val jacksonVersion = "2.13.4"
 val builderVersion = "1.2.1"
 val loggerVersion = "2.1.23"
+val mockkVersion = "1.12.7"
 
 plugins {
     `maven-publish`
@@ -22,6 +23,7 @@ dependencies {
     implementation("com.thinkinglogic.builder:kotlin-builder-annotation:$builderVersion")
     kapt("com.thinkinglogic.builder:kotlin-builder-processor:$builderVersion")
     implementation("io.github.microutils:kotlin-logging-jvm:$loggerVersion")
+    testImplementation("io.mockk:mockk:$mockkVersion")
 }
 
 tasks.test {
