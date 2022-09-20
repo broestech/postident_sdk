@@ -15,6 +15,7 @@ private const val CONTENT_TYPE_HEADER_NAME: String = "Content-Type"
 private const val CONTENT_TYPE_HEADER_VALUE: String = "application/json"
 private const val AUTHORIZATION_HEADER_NAME: String = "Authorization"
 
+
 class PostIdentApi(private val config: PostIdentConfiguration) {
 
     private val mapper: ObjectMapper = jacksonObjectMapper()
@@ -31,7 +32,11 @@ class PostIdentApi(private val config: PostIdentConfiguration) {
     private fun <T> executeRequest(request: HttpRequest, responseClass: Class<T>): T {
         try {
             val response = httpClient.send(request, BodyHandlers.ofString())
-            return mapper.readValue(response.body(), responseClass)
+            if (response.statusCode() == 200) {
+                return mapper.readValue(response.body(), responseClass)
+            } else {
+                throw PostIdentApiException(request, response)
+            }
         } catch (exception: InterruptedException) {
             Thread.currentThread().interrupt()
             throw ThreadInterruptedException(exception)
