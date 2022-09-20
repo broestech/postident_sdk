@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val jacksonVersion = "2.13.4"
 val builderVersion = "1.2.1"
-val loggerVersion = "2.0.11"
+val loggerVersion = "2.1.23"
 
 plugins {
     `maven-publish`
