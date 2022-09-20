@@ -46,8 +46,8 @@ class PostIdentApiTest {
                 eq(BodyHandlers.ofString())
             )
         } returns CompletableFuture.completedFuture(response)
-        
-        assertThrows<ExecutionException>("") {
+
+        assertThrows<ExecutionException>("Should have thrown ExecutionException") {
             postIdentApi.createSigningCase(signingCaseRequest).get()
         }.run { assertEquals(PostIdentApiException::class, cause!!::class) }
 
