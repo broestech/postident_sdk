@@ -12,6 +12,7 @@ data class PostIdentConfiguration(
 ) {
 
     val signingUri = "$baseUrl/scr-signing/v2/$clientId/signingcases"
+    fun getSigningResultUri(caseId: String) = "$baseUrl/scr-signing/v2/$clientId/signingcases/$caseId"
 
     val authHeaderValue: String = "Basic %s".format(
         Base64.getEncoder().encodeToString("%s:%s".format(username, password).toByteArray())
