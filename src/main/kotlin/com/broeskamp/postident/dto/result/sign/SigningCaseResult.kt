@@ -1,4 +1,4 @@
-package com.broeskamp.postident.dto.result
+package com.broeskamp.postident.dto.result.sign
 
 import com.broeskamp.postident.dto.CustomData
 import com.thinkinglogic.builder.annotation.Builder

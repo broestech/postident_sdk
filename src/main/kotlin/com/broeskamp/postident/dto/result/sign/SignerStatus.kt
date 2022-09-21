@@ -1,19 +1,22 @@
-package com.broeskamp.postident.dto.result
+package com.broeskamp.postident.dto.result.sign
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-enum class CaseStatus {
+enum class SignerStatus {
     @JsonProperty("new")
     NEW,
-    
+
+    @JsonProperty("identification")
+    IDENTIFICATION,
+
     @JsonProperty("signing process")
     SIGNING_PROCESS,
 
     @JsonProperty("signed")
     SIGNED,
 
-    @JsonProperty("closed")
-    CLOSED,
+    @JsonProperty("finished")
+    FINISHED,
 
     @JsonProperty("declined")
     DECLINED

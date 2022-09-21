@@ -1,4 +1,4 @@
-package com.broeskamp.postident.dto.result
+package com.broeskamp.postident.dto.result.sign
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
