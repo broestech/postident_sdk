@@ -3,6 +3,7 @@ package com.broeskamp.postident
 
 import com.broeskamp.postident.dto.request.SigningCaseRequest
 import com.broeskamp.postident.dto.response.SigningCaseResponse
+import com.broeskamp.postident.dto.result.SigningCaseResult
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import java.net.URI
@@ -28,6 +29,16 @@ class PostIdentApi(
             .build()
         return executeRequest(request, SigningCaseResponse::class.java)
     }
+
+    fun retrieveSigningCaseResult(caseId: String): CompletableFuture<SigningCaseResult>{
+        val request = getHttpRequestBuilder()
+            .uri(URI.create(config.getSigningResultUri(caseId)))
+            .GET()
+            .build();
+        return executeRequest(request, SigningCaseResult::class.java)
+    }
+
+
 
     private fun <T> executeRequest(
         request: HttpRequest,
