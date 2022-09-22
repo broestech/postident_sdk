@@ -1,5 +1,6 @@
 package com.broeskamp.postident.dto.request
 
+import com.broeskamp.postident.dto.MultiPlatformUrl
 import com.thinkinglogic.builder.annotation.Builder
 
 @Builder

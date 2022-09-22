@@ -1,5 +1,8 @@
 package com.broeskamp.postident.dto.request
 
+import com.broeskamp.postident.dto.MultiPlatformUrl
+import com.broeskamp.postident.dto.PreferredLanguage
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.thinkinglogic.builder.annotation.Builder
 import java.time.LocalDate
 
@@ -90,4 +93,22 @@ data class ProcessData(
      */
     val signingButtonLabel: SigningButtonLabel?,
 
-    )
+    ) {
+    enum class SigningButtonLabel {
+
+        @JsonProperty("1")
+        LEGAL_SIGNATURE,
+
+        @JsonProperty("2")
+        PAYMENT_SIGNATURE,
+
+        @JsonProperty("3")
+        DIGITAL_SIGNATURE,
+
+        @JsonProperty("4")
+        SIGN,
+
+        @JsonProperty("5")
+        PURCHASE
+    }
+}

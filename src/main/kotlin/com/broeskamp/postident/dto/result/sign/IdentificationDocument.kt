@@ -1,5 +1,6 @@
 package com.broeskamp.postident.dto.result.sign
 
+import com.broeskamp.postident.dto.DocumentType
 import com.thinkinglogic.builder.annotation.Builder
 import java.time.LocalDate
 
