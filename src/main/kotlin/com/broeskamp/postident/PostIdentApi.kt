@@ -25,7 +25,7 @@ class PostIdentApi(
 
     fun createSigningCase(signingCaseRequest: SigningCaseRequest): CompletableFuture<SigningCaseResponse> {
         val request = getHttpRequestBuilder()
-            .uri(URI.create(config.signingUri))
+            .uri(config.getSigningUri())
             .POST(BodyPublishers.ofString(mapper.writeValueAsString(signingCaseRequest)))
             .build()
         return executeRequest(request, SigningCaseResponse::class.java)
@@ -33,7 +33,7 @@ class PostIdentApi(
 
     fun retrieveSigningCaseResult(caseId: String): CompletableFuture<SigningCaseResult>{
         val request = getHttpRequestBuilder()
-            .uri(URI.create(config.getSigningResultUri(caseId)))
+            .uri(config.getSigningResultUri(caseId))
             .GET()
             .build()
         return executeRequest(request, SigningCaseResult::class.java)
@@ -41,7 +41,7 @@ class PostIdentApi(
 
     fun retrieveIdentCaseResult(caseId: String): CompletableFuture<IdentCaseResult>{
         val request = getHttpRequestBuilder()
-            .uri(URI.create(config.getIdentResultUri(caseId)))
+            .uri(config.getIdentResultUri(caseId))
             .GET()
             .build()
         return executeRequest(request, IdentCaseResult::class.java)
