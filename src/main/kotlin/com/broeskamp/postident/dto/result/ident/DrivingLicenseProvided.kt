@@ -34,7 +34,7 @@ data class DrivingLicenseProvided(
      */
     val birthPlace: String?,
 
-    val drivingLicenceClasses: List<JvmType.Object>?,
+    val drivingLicenceClasses: List<Any>?,
 
     /**
      * Max length: 35
