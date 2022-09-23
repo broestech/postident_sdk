@@ -1,6 +1,7 @@
-package com.broeskamp.postident.dto.result
+package com.broeskamp.postident.dto.result.sign
 
 import com.broeskamp.postident.dto.CustomData
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.thinkinglogic.builder.annotation.Builder
 import java.time.Instant
 import java.time.LocalDate
@@ -73,4 +74,39 @@ data class SigningCaseResult(
     val storeUntil: LocalDate?,
 
 
-    )
+    ){
+    enum class CaseStatus {
+        @JsonProperty("new")
+        NEW,
+
+        @JsonProperty("signing process")
+        SIGNING_PROCESS,
+
+        @JsonProperty("signed")
+        SIGNED,
+
+        @JsonProperty("closed")
+        CLOSED,
+
+        @JsonProperty("declined")
+        DECLINED
+    }
+
+    /**
+     * - for caseStatus declined:
+     *      - validity period expired
+     *      - signer was declined
+     * - for caseStatus closed:
+     *      - archived
+     */
+    enum class CaseSubStatus {
+        @JsonProperty("validity period expired")
+        VALIDITY_PERIOD_EXPIRED,
+
+        @JsonProperty("signer was declined")
+        SIGNER_WAS_DECLINED,
+
+        @JsonProperty("archived")
+        ARCHIVED
+    }
+}

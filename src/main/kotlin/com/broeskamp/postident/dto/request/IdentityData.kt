@@ -1,6 +1,8 @@
 package com.broeskamp.postident.dto.request
 
+import com.broeskamp.postident.dto.Address
 import com.thinkinglogic.builder.annotation.Builder
+import java.time.LocalDate
 
 @Builder
 data class IdentityData(
@@ -46,7 +48,7 @@ data class IdentityData(
      *
      * @sample "1985-01-01"
      */
-    val birthDate: String?,
+    val birthDate: LocalDate?,
 
     /**
      * Max length: 55
