@@ -12,7 +12,7 @@ data class AdditionalDataVideo(
      *
      * @sample "1 DP CSC GmbH, Location Flensburg"
      */
-    val identificationServiceCenter:String,
+    val identificationServiceCenter: String,
 
     /**
      * Alias of Agent, who performed this identification
@@ -22,12 +22,12 @@ data class AdditionalDataVideo(
     /**
      * List of reviews performed (only for class TKG)
      */
-    val identReviews:String,
+    val identReviews: String,
 
     /**
      * Currently not filled, always empty
      */
-    val auditTrailItems:String?,
+    val auditTrailItems: String?,
 
     /**
      * Time of the user's consent to the video recording
