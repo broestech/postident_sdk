@@ -9,7 +9,7 @@ data class WebStart(
      *
      * @sample "https://postident.deutschepost.de/signingportal/entry/e29c1298-5bff-4b0e-aa53-30b93d533840"
      */
-    val caseUrl: String,
+    val caseURL: String,
 
 
     /**
