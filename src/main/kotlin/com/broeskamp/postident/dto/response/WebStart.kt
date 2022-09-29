@@ -1,15 +1,18 @@
 package com.broeskamp.postident.dto.response
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.thinkinglogic.builder.annotation.Builder
 
 @Builder
 data class WebStart(
+
     /**
      * URL to redirect the browser of the user from your web portal to the E-Signing portal. The redirection must be executed as a HTTP Post that contains a JSON Web Token
      *
      * @sample "https://postident.deutschepost.de/signingportal/entry/e29c1298-5bff-4b0e-aa53-30b93d533840"
      */
-    val caseURL: String,
+    @JsonProperty("caseURL")
+    val caseUrl: String,
 
 
     /**

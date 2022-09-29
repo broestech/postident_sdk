@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import java.net.HttpURLConnection
 import net.schmizz.sshj.SSHClient
 import net.schmizz.sshj.transport.verification.PromiscuousVerifier
 import java.net.http.HttpRequest
@@ -20,12 +21,10 @@ private const val CONTENT_TYPE_HEADER_NAME: String = "Content-Type"
 private const val CONTENT_TYPE_HEADER_VALUE: String = "application/json"
 private const val AUTHORIZATION_HEADER_NAME: String = "Authorization"
 
+private val mapper: ObjectMapper = jacksonObjectMapper().registerModule(JavaTimeModule())
+    .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
 
-class PostIdentApi @JvmOverloads constructor(
-    private val config: PostIdentConfiguration,
-    private val mapper: ObjectMapper = jacksonObjectMapper().registerModule(JavaTimeModule())
-        .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-) {
+class PostIdentApi(private val config: PostIdentConfiguration) {
 
     fun createSigningCase(signingCaseRequest: SigningCaseRequest): CompletableFuture<SigningCaseResponse> {
         val request = getHttpRequestBuilder()
@@ -71,7 +70,7 @@ class PostIdentApi @JvmOverloads constructor(
     ): CompletableFuture<T> {
         val futureResponse = config.httpClient.sendAsync(request, BodyHandlers.ofString())
         return futureResponse.thenApply { response ->
-            if (response.statusCode() == 201 || response.statusCode() == 200) {
+            if (response.statusCode() == HttpURLConnection.HTTP_CREATED || response.statusCode() == HttpURLConnection.HTTP_OK) {
                 return@thenApply mapper.readValue(response.body(), responseClass)
             } else {
                 throw PostIdentApiException(request, response)

@@ -32,5 +32,4 @@ data class PostIdentConfiguration @JvmOverloads constructor(
         Base64.getEncoder().encodeToString("%s:%s".format(username, password).toByteArray())
     )
 
-
 }
