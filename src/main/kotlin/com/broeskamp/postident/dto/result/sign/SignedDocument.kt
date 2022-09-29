@@ -31,5 +31,5 @@ data class SignedDocument(
      *
      * @sample "ABFuIG...VkPcD3="
      */
-    val documentData: String
+    val documentData: String? //TODO should not be able to be null
 )

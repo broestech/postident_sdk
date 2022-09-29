@@ -2,7 +2,6 @@ package com.broeskamp.postident.dto.result.ident
 
 import com.thinkinglogic.builder.annotation.Builder
 import java.time.LocalDate
-import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
 @Builder
 data class DrivingLicenseProvided(
@@ -57,7 +56,7 @@ data class DrivingLicenseProvided(
      *
      * @sample "2033-01-19"
      */
-    val dateOfExpiry: LocalDate,
+    val dateOfExpiry: LocalDate?,
 
     /**
      * Max length: 100
@@ -75,7 +74,7 @@ data class DrivingLicenseProvided(
      *
      * @sample "DEU"
      */
-    val countryOfDocument: String,
+    val countryOfDocument: String?,
 
     val records: List<RecordResult>?,
 )

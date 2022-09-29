@@ -3,6 +3,7 @@ package com.broeskamp.postident.dto.result.sign
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.thinkinglogic.builder.annotation.Builder
 import java.time.Instant
+import java.time.LocalDate
 
 @Builder
 data class SignerResult(
@@ -29,8 +30,10 @@ data class SignerResult(
      * Max length: 26
      *
      * @sample "2017-01-28T23:59:59+01:00"
+     *
+     * Edit: PostIdent sent LocalDate
      */
-    val created: Instant,
+    val created: LocalDate, //TODO instant
 
     /**
      * Last modification time of the signer
@@ -38,8 +41,10 @@ data class SignerResult(
      * Max length: 26
      *
      * @sample "2017-01-28T23:59:59+01:00"
+     *
+     * Edit: PostIdent sent LocalDate
      */
-    val modified: Instant?,
+    val modified: LocalDate?, //TODO instant
 
     /**
      * Date and time of successful identification. ISO 8601 format, accuracy in seconds, the offset to Zulu time ±hh:mm at the end
@@ -116,7 +121,7 @@ data class SignerResult(
      */
     val signedDocuments: List<Number>,
 
-    ){
+    ) {
 
     enum class SignerStatus {
         @JsonProperty("new")

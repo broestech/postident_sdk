@@ -97,7 +97,7 @@ data class IdentificationDocumentProvided(
      *
      * @sample "2010-05-19"
      */
-    val dateOfExpiry: LocalDate,
+    val dateOfExpiry: LocalDate?,
 
     /**
      * Max length: 100
@@ -124,5 +124,5 @@ data class IdentificationDocumentProvided(
      *
      * @sample "DEU"
      */
-    val countryOfDocument: String,
+    val countryOfDocument: String?,
 )

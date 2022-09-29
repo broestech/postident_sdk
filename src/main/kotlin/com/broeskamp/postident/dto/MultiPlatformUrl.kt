@@ -11,5 +11,5 @@ data class MultiPlatformUrl(
      *
      * @sample "https://musterbank.eu/pi-signing-callback/success.html"
      */
-    val webUrl: String
+    val webUrl: String?
 )

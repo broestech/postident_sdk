@@ -8,6 +8,6 @@ data class IdentCaseResult(
     val caseStatus: CaseStatus,
     val orderData: OrderData?,
     val contactData: ContactDataResult,
-    val primaryIdentification: IdentificationResult,
+    val identifications: List<IdentificationResult>,
     val accountingData: AccountingData,
 )

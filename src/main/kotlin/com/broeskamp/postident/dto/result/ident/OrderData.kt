@@ -13,5 +13,5 @@ data class OrderData(
     val processData: ProcessData?,
     val contactDataProvided: ContactDataProvided?,
     val identificationDocumentProvided: IdentificationDocumentProvided?,
-    val drivingLicenseProvided: DrivingLicenseProvided?,
+    val drivingLicenceProvided: DrivingLicenseProvided?,
 )
