@@ -4,6 +4,7 @@ val jacksonVersion = "2.13.4"
 val builderVersion = "1.2.1"
 val mockkVersion = "1.12.7"
 val loggingVersion = "2.0.2"
+val sshjVersion = "0.34.0"
 
 plugins {
     `maven-publish`
@@ -24,6 +25,8 @@ dependencies {
     kapt("com.thinkinglogic.builder:kotlin-builder-processor:$builderVersion")
     testImplementation("io.mockk:mockk:$mockkVersion")
     implementation("org.slf4j:slf4j-api:$loggingVersion")
+    implementation("com.hierynomus:sshj:$sshjVersion")
+
 }
 
 tasks.test {
