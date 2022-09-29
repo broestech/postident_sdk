@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import java.net.HttpURLConnection
 import java.net.http.HttpRequest
 import java.net.http.HttpRequest.BodyPublishers
 import java.net.http.HttpResponse.BodyHandlers
@@ -53,7 +54,7 @@ class PostIdentApi(private val config: PostIdentConfiguration) {
     ): CompletableFuture<T> {
         val futureResponse = config.httpClient.sendAsync(request, BodyHandlers.ofString())
         return futureResponse.thenApply { response ->
-            if (response.statusCode() == 201) {
+            if (response.statusCode() == HttpURLConnection.HTTP_CREATED) {
                 return@thenApply mapper.readValue(response.body(), responseClass)
             } else {
                 throw PostIdentApiException(request, response)
