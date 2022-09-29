@@ -4,7 +4,8 @@ import java.net.URI
 import java.net.http.HttpClient
 import java.util.*
 
-data class PostIdentConfiguration(
+
+data class PostIdentConfiguration @JvmOverloads constructor(
     private val username: String,
     private val password: String,
     private val clientId: String,

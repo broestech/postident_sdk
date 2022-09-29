@@ -1,26 +1,21 @@
 package com.broeskamp.postident
 
-import mu.KotlinLogging
+import org.slf4j.LoggerFactory
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
 
-private val logger = KotlinLogging.logger {}
+private val logger = LoggerFactory.getLogger(PostIdentApiException::class.java)
 
 class PostIdentApiException(request: HttpRequest, response: HttpResponse<String>) :
     RuntimeException(
-        "PostIdentApi returned error with status code %s and response body %s".format(
+        "PostIdentApi %s request to %s returned error with status code %s".format(
+            request.method(),
+            request.uri().toString(),
             response.statusCode().toString(),
-            response.body()
         )
     ) {
 
     init {
-        logger.debug {
-            "PostIdentApi request method: %s request URI: %s".format(
-                request.method(),
-                request.uri().toString()
-            )
-        }
+        logger.debug("Response Body %s".format(response.body()))
     }
-
 }

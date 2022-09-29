@@ -3,7 +3,7 @@ package com.broeskamp.postident.dto.result.sign
 import com.thinkinglogic.builder.annotation.Builder
 
 @Builder
-data class SignedDocuments(
+data class SignedDocument(
 
     /**
      * Max length: 30

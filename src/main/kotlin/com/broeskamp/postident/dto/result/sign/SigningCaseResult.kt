@@ -38,7 +38,7 @@ data class SigningCaseResult(
      */
     val created: Instant,
 
-    val signedDocuments: SignedDocuments?,
+    val signedDocuments: List<SignedDocument>?,
 
     val accountingData: AccountingData?,
 
