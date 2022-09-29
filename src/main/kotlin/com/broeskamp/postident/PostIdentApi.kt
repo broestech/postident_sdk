@@ -18,12 +18,10 @@ private const val CONTENT_TYPE_HEADER_NAME: String = "Content-Type"
 private const val CONTENT_TYPE_HEADER_VALUE: String = "application/json"
 private const val AUTHORIZATION_HEADER_NAME: String = "Authorization"
 
+private val mapper: ObjectMapper = jacksonObjectMapper().registerModule(JavaTimeModule())
+    .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
 
-class PostIdentApi @JvmOverloads constructor(
-    private val config: PostIdentConfiguration,
-    private val mapper: ObjectMapper = jacksonObjectMapper().registerModule(JavaTimeModule())
-        .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-) {
+class PostIdentApi(private val config: PostIdentConfiguration) {
 
     fun createSigningCase(signingCaseRequest: SigningCaseRequest): CompletableFuture<SigningCaseResponse> {
         val request = getHttpRequestBuilder()
