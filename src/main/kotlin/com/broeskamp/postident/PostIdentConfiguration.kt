@@ -21,7 +21,9 @@ data class PostIdentConfiguration @JvmOverloads constructor(
     private val identUri = URI.create("$baseUrl/scr/v1")
 
     fun getSigningUri(): URI = URI.create(signingUri)
-    fun getSigningResultUri(caseId: String): URI = URI.create("$signingUri/$caseId")
+    fun getSigningResultUri(caseId: String): URI =
+        URI.create("$signingUri/$caseId?includeBinaryData=true")
+
     fun getIdentResultUri(caseId: String): URI =
         URI.create("$identUri/$clientId/cases/$caseId/full?includeBinaryData=true")
 
