@@ -8,11 +8,11 @@ data class IdentificationResult(
     val identificationMethod: IdentificationMethod,
     val identificationStatus: IdentificationStatus,
     val identificationDocument: IdentificationDocumentResult,
-    val drivingLicense: DrivingLicenseProvided?, //TODO Post techniker klären
+    val drivingLicense: DrivingLicenseProvided?,
     val records: List<RecordResult>?,
     val additionalDataBasic: AdditionalDataBasic?,
     val additionalDataVideo: AdditionalDataVideo?,
-    val additionaDataEid: AdditionalDataEid? //TODO typo?
+    val additionalDataEid: AdditionalDataEid?
 ) {
     enum class IdentificationMethod {
         @JsonProperty("photo")

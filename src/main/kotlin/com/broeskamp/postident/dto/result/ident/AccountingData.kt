@@ -14,5 +14,5 @@ data class AccountingData(
      *
      * @sample "Postident Video"
      */
-    val accountingProduct: String,
+    val accountingProduct: String?,
 )
