@@ -16,11 +16,11 @@ data class IdentificationStatus(
      * Additional information from agent regarding fraud suspicion
      */
     val subStatusReason: ResultStatus?,
-    val identificationTime: Instant,
+    val identificationTime: Instant?,
     val created: Instant,
     val modified: Instant,
 ) {
-   enum class Status {
+    enum class Status {
 
         @JsonProperty("started")
         STARTED,
