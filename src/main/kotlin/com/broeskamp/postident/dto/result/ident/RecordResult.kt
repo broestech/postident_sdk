@@ -57,9 +57,9 @@ data class RecordResult(
      *
      * Videochatrecording are only delivered via SFTP and only for class GwG.
      */
-    val documentData: String,
+    val documentData: String?,
 
-) {
+    ) {
     enum class BelongsTo {
 
         @JsonProperty("method")

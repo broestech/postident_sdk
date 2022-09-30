@@ -7,41 +7,48 @@ import com.fasterxml.jackson.annotation.JsonProperty
  *
  * @sample "1"
  */
-enum class DocumentType {
+enum class DocumentType(private val postIdentAlias: String) {
     @JsonProperty("1")
-    ID_CARD,
+    ID_CARD("1"),
 
     @JsonProperty("2")
-    PASSPORT,
+    PASSPORT("2"),
 
     @JsonProperty("3")
-    RESIDENCE_TITLE,
+    RESIDENCE_TITLE("3"),
 
     @JsonProperty("4")
-    TEMPORARY_ID_CARD,
+    TEMPORARY_ID_CARD("4"),
 
     @JsonProperty("5")
-    TEMPORARY_PASSPORT,
+    TEMPORARY_PASSPORT("5"),
 
     @JsonProperty("6")
-    CONVENTION_TRAVEL_DOCUMENT,
+    CONVENTION_TRAVEL_DOCUMENT("6"),
 
     @JsonProperty("7")
-    CONVENTION_TRAVEL_DOCUMENT_REFUGEE,
+    CONVENTION_TRAVEL_DOCUMENT_REFUGEE("7"),
 
     @JsonProperty("8")
-    CONVENTION_TRAVEL_DOCUMENT_FOREIGNER,
+    CONVENTION_TRAVEL_DOCUMENT_FOREIGNER("8"),
 
     @JsonProperty("9")
-    SERVICE_PASSPORT,
+    SERVICE_PASSPORT("9"),
 
     @JsonProperty("10")
-    DIPLOMATIC_PASSPORT,
+    DIPLOMATIC_PASSPORT("10"),
 
     @JsonProperty("11")
-    OFFICIAL_PASSPORT,
+    OFFICIAL_PASSPORT("11"),
 
     @JsonProperty("12")
-    OFFICIAL_OR_DIPLOMATIC_PASSPORT,
+    OFFICIAL_OR_DIPLOMATIC_PASSPORT("12");
+
+    companion object {
+        @JvmStatic
+        fun byPostIdentAlias(alias: String): DocumentType =
+            values().first { it.postIdentAlias == alias }
+    }
+
 }
 

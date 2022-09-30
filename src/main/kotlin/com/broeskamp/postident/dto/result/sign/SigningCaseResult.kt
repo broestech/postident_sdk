@@ -3,7 +3,6 @@ package com.broeskamp.postident.dto.result.sign
 import com.broeskamp.postident.dto.CustomData
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.thinkinglogic.builder.annotation.Builder
-import java.time.Instant
 import java.time.LocalDate
 
 /**
@@ -27,7 +26,7 @@ data class SigningCaseResult(
     /**
      * @sample "validity period expired"
      */
-    val caseSubStatus: CaseSubStatus,
+    val caseSubStatus: CaseSubStatus?,
 
     /**
      * Creation time of the signing case
@@ -35,8 +34,10 @@ data class SigningCaseResult(
      * Max length: 26
      *
      * @sample "2017-01-28T23:59:59+01:00"
+     *
+     * Edit: PostIdent sent LocalDate
      */
-    val created: Instant,
+    val created: LocalDate, //TODO instant
 
     val signedDocuments: List<SignedDocument>?,
 
@@ -74,7 +75,7 @@ data class SigningCaseResult(
     val storeUntil: LocalDate?,
 
 
-    ){
+    ) {
     enum class CaseStatus {
         @JsonProperty("new")
         NEW,

@@ -10,6 +10,8 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import java.net.HttpURLConnection
+import net.schmizz.sshj.SSHClient
+import net.schmizz.sshj.transport.verification.PromiscuousVerifier
 import java.net.http.HttpRequest
 import java.net.http.HttpRequest.BodyPublishers
 import java.net.http.HttpResponse.BodyHandlers
@@ -40,12 +42,26 @@ class PostIdentApi(private val config: PostIdentConfiguration) {
         return executeRequest(request, SigningCaseResult::class.java)
     }
 
-    fun retrieveIdentCaseResult(caseId: String): CompletableFuture<IdentCaseResult> {
+    fun retrieveIdentCaseResult(identCaseId: String): CompletableFuture<IdentCaseResult> {
         val request = getHttpRequestBuilder()
-            .uri(config.getIdentResultUri(caseId))
+            .uri(config.getIdentResultUri(identCaseId))
             .GET()
             .build()
         return executeRequest(request, IdentCaseResult::class.java)
+    }
+
+    fun retrieveVideoIdentZip(caseId: String) {
+        val sshClient = SSHClient()
+        sshClient.addHostKeyVerifier(PromiscuousVerifier())
+        sshClient.connect(config.sftpHost)
+        //val keyPairWrapper = KeyPair(Pub)
+        sshClient.authPublickey(config.username, "C:/postident-test-finevest")
+
+        val sftpClient = sshClient.newSFTPClient()
+
+        //TODO get Video Data
+
+        //return PostIdentFile(filename, inputStream)
     }
 
     private fun <T> executeRequest(
@@ -54,7 +70,7 @@ class PostIdentApi(private val config: PostIdentConfiguration) {
     ): CompletableFuture<T> {
         val futureResponse = config.httpClient.sendAsync(request, BodyHandlers.ofString())
         return futureResponse.thenApply { response ->
-            if (response.statusCode() == HttpURLConnection.HTTP_CREATED) {
+            if (response.statusCode() == HttpURLConnection.HTTP_CREATED || response.statusCode() == HttpURLConnection.HTTP_OK) {
                 return@thenApply mapper.readValue(response.body(), responseClass)
             } else {
                 throw PostIdentApiException(request, response)
@@ -66,5 +82,4 @@ class PostIdentApi(private val config: PostIdentConfiguration) {
         HttpRequest.newBuilder()
             .header(CONTENT_TYPE_HEADER_NAME, CONTENT_TYPE_HEADER_VALUE)
             .header(AUTHORIZATION_HEADER_NAME, config.authHeaderValue)
-
 }

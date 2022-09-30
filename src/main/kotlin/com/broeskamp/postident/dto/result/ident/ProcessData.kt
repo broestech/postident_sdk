@@ -99,6 +99,8 @@ data class ProcessData(
      */
     val callbackUrlReviewPending: MultiPlatformUrl?,
 
+    val callbackUrlIncomplete: MultiPlatformUrl?,
+
     /**
      * Used by POSTIDENT to display a button for the user back to your application. Provide a URL for each POSTIDENT platform that shall display the redirect button. If not provided, the redirect button will not be displayed.
      *

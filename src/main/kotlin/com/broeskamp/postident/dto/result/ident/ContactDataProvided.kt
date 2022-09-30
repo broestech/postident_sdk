@@ -23,7 +23,7 @@ data class ContactDataProvided(
      *
      * @sample "Max"
      */
-    val firstname: String?,
+    val firstName: String?,
 
     /**
      * Necessary for the identification process.
@@ -59,7 +59,7 @@ data class ContactDataProvided(
      *
      * @sample "max.muster@gmail.com"
      */
-     val email: String?,
+    val email: String?,
 
     /**
      * Max length: 320

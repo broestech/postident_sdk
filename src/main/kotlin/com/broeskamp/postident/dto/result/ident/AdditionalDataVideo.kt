@@ -12,35 +12,37 @@ data class AdditionalDataVideo(
      *
      * @sample "1 DP CSC GmbH, Location Flensburg"
      */
-    val identificationServiceCenter: String,
+    val identificationServiceCenter: String?,
 
     /**
      * Alias of Agent, who performed this identification
      */
-    val identificationAgentAlias: String,
+    val identificationAgentAlias: String?,
 
     /**
      * List of reviews performed (only for class TKG)
      */
-    val identReviews: String,
+    val identReviews: String?,
 
     /**
      * Currently not filled, always empty
      */
-    val auditTrailItems: String?,
+    val auditTrailItems: List<String>?,
 
     /**
      * Time of the user's consent to the video recording
      */
-    val videoRecordingAccepted: Instant,
+    val videoRecordingAccepted: Instant?,
 
     /**
      * Channel where TAN has been sent to (only for class GWG). = ['sms', 'email']
      */
-    val tanChannel: TanChannel,
+    val tanChannel: TanChannel?,
 
-) {
-    enum class TanChannel{
+    val videoRecordingDeliveryShaft: Boolean?,
+
+    ) {
+    enum class TanChannel {
 
         @JsonProperty("sms")
         SMS,
