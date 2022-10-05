@@ -1,7 +1,9 @@
 package com.broeskamp.postident.dto.result.ident
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.thinkinglogic.builder.annotation.Builder
 
+@Builder
 data class RecordResult(
 
     /**

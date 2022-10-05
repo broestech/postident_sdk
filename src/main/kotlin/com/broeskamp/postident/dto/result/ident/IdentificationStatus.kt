@@ -1,8 +1,11 @@
 package com.broeskamp.postident.dto.result.ident
 
+
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.thinkinglogic.builder.annotation.Builder
 import java.time.Instant
 
+@Builder
 data class IdentificationStatus(
 
     val status: Status,
