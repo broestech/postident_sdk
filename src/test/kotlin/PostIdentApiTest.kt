@@ -2,7 +2,6 @@ import com.broeskamp.postident.PostIdentApi
 import com.broeskamp.postident.PostIdentApiException
 import com.broeskamp.postident.PostIdentConfiguration
 import com.broeskamp.postident.dto.request.SigningCaseRequest
-import com.fasterxml.jackson.databind.ObjectMapper
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
@@ -26,18 +25,20 @@ class PostIdentApiTest {
     lateinit var signingCaseRequest: SigningCaseRequest
 
     @MockK
-    lateinit var mapper: ObjectMapper
-
-    @MockK
     lateinit var response: HttpResponse<String>
 
     @Test
     fun `test throw PostIdentApiException on statusCode != 200`() {
         val postIdentConfiguration =
-            PostIdentConfiguration("user", "password", "clientId", "http://base.url", httpClient)
-        val postIdentApi = PostIdentApi(postIdentConfiguration, mapper)
+            PostIdentConfiguration(
+                "user",
+                "password",
+                "clientId",
+                "http://base.url",
+                httpClient,
+            )
+        val postIdentApi = PostIdentApi(postIdentConfiguration, null)
 
-        every { mapper.writeValueAsString(any()) } returns ""
         every { response.statusCode() } returns 404
         every { response.body() } returns ""
         every {
