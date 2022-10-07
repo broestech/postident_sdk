@@ -10,6 +10,7 @@ data class PostIdentConfiguration @JvmOverloads constructor(
     private val password: String,
     private val clientId: String,
     private val baseUrl: String,
+    val sftpConfig: PostIdentSftpConfiguration?,
     val httpClient: HttpClient = HttpClient.newHttpClient(),
 ) {
 

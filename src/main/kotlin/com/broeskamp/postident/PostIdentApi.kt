@@ -30,7 +30,6 @@ private val logger = LoggerFactory.getLogger(PostIdentApi::class.java)
 
 class PostIdentApi(
     private val config: PostIdentConfiguration,
-    private val sftpConfig: PostIdentSftpConfiguration?
 ) {
 
     fun createSigningCase(signingCaseRequest: SigningCaseRequest): CompletableFuture<SigningCaseResponse> {
@@ -58,29 +57,41 @@ class PostIdentApi(
     }
 
     fun retrieveVideoIdentZip(caseId: String): PostIdentFile {
-        if (sftpConfig == null) {
+        if (config.sftpConfig == null) {
             throw IllegalArgumentException("Cannot retrieve Video without a SFTP Configuration")
         }
         val sshClient = SSHClient()
         sshClient.addHostKeyVerifier(PromiscuousVerifier())
-        sshClient.connect(sftpConfig.host)
-        val passwordFinder: PasswordFinder? = if (sftpConfig.keyPassword != null) {
-            PostidentPasswordFinder(sftpConfig.keyPassword)
+        sshClient.connect(config.sftpConfig.host)
+        val passwordFinder: PasswordFinder? = if (config.sftpConfig.keyPassword != null) {
+            PostidentPasswordFinder(config.sftpConfig.keyPassword)
         } else {
             null
         }
         val keyProvider =
-            sshClient.loadKeys(sftpConfig.privateKey, sftpConfig.publicKey, passwordFinder)
+            sshClient.loadKeys(
+                config.sftpConfig.privateKey,
+                config.sftpConfig.publicKey,
+                passwordFinder
+            )
 
         sshClient.authPublickey(config.username, keyProvider)
         val sftpClient = sshClient.newSFTPClient()
         val filePath =
-            "${sftpConfig.path}${sftpConfig.getVideoZipFilename(config.username, caseId)}"
-        logger.info("Opening file: $filePath")
+            "${config.sftpConfig.path}${
+                config.sftpConfig.getVideoZipFilename(
+                    config.username,
+                    caseId
+                )
+            }"
+        logger.info("Opening file: $filePath to retrieve videoRecording from PostIdent with caseId: $caseId")
         val remoteFile = sftpClient.open(filePath)
         val inputStream = remoteFile.RemoteFileInputStream()
 
-        return PostIdentFile(sftpConfig.getVideoZipFilename(config.username, caseId), inputStream)
+        return PostIdentFile(
+            config.sftpConfig.getVideoZipFilename(config.username, caseId),
+            inputStream
+        )
     }
 
     private fun <T> executeRequest(
