@@ -9,9 +9,11 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import java.net.HttpURLConnection
 import net.schmizz.sshj.SSHClient
 import net.schmizz.sshj.transport.verification.PromiscuousVerifier
+import net.schmizz.sshj.userauth.password.PasswordFinder
+import org.slf4j.LoggerFactory
+import java.net.HttpURLConnection
 import java.net.http.HttpRequest
 import java.net.http.HttpRequest.BodyPublishers
 import java.net.http.HttpResponse.BodyHandlers
@@ -24,7 +26,11 @@ private const val AUTHORIZATION_HEADER_NAME: String = "Authorization"
 private val mapper: ObjectMapper = jacksonObjectMapper().registerModule(JavaTimeModule())
     .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
 
-class PostIdentApi(private val config: PostIdentConfiguration) {
+private val logger = LoggerFactory.getLogger(PostIdentApi::class.java)
+
+class PostIdentApi(
+    private val config: PostIdentConfiguration,
+) {
 
     fun createSigningCase(signingCaseRequest: SigningCaseRequest): CompletableFuture<SigningCaseResponse> {
         val request = getHttpRequestBuilder()
@@ -50,18 +56,42 @@ class PostIdentApi(private val config: PostIdentConfiguration) {
         return executeRequest(request, IdentCaseResult::class.java)
     }
 
-    fun retrieveVideoIdentZip(caseId: String) {
+    fun retrieveVideoIdentZip(caseId: String): PostIdentFile {
+        if (config.sftpConfig == null) {
+            throw ConfigurationMissingException("Cannot retrieve Video without a SFTP Configuration")
+        }
         val sshClient = SSHClient()
         sshClient.addHostKeyVerifier(PromiscuousVerifier())
-        sshClient.connect(config.sftpHost)
-        //val keyPairWrapper = KeyPair(Pub)
-        sshClient.authPublickey(config.username, "C:/postident-test-finevest")
+        sshClient.connect(config.sftpConfig.host)
+        val passwordFinder: PasswordFinder? = if (config.sftpConfig.keyPassword != null) {
+            PostidentPasswordFinder(config.sftpConfig.keyPassword)
+        } else {
+            null
+        }
+        val keyProvider =
+            sshClient.loadKeys(
+                config.sftpConfig.privateKey,
+                config.sftpConfig.publicKey,
+                passwordFinder
+            )
 
+        sshClient.authPublickey(config.username, keyProvider)
         val sftpClient = sshClient.newSFTPClient()
+        val filePath =
+            "${config.sftpConfig.path}${
+                config.sftpConfig.getVideoZipFilename(
+                    config.username,
+                    caseId
+                )
+            }"
+        logger.info("Opening file: $filePath to retrieve videoRecording from PostIdent with caseId: $caseId")
+        val remoteFile = sftpClient.open(filePath)
+        val inputStream = remoteFile.RemoteFileInputStream()
 
-        //TODO get Video Data
-
-        //return PostIdentFile(filename, inputStream)
+        return PostIdentFile(
+            config.sftpConfig.getVideoZipFilename(config.username, caseId),
+            inputStream
+        )
     }
 
     private fun <T> executeRequest(

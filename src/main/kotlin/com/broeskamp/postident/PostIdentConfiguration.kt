@@ -10,11 +10,8 @@ data class PostIdentConfiguration @JvmOverloads constructor(
     private val password: String,
     private val clientId: String,
     private val baseUrl: String,
-    val sftpHost: String?,
-    val publicKey: String?,
-    val privateKey: String?,
-    private val billingNumber: String?,
-    val httpClient: HttpClient = HttpClient.newHttpClient()
+    val sftpConfig: PostIdentSftpConfiguration?,
+    val httpClient: HttpClient = HttpClient.newHttpClient(),
 ) {
 
     private val signingUri = "$baseUrl/scr-signing/v2/$clientId/signingcases"
@@ -27,8 +24,6 @@ data class PostIdentConfiguration @JvmOverloads constructor(
     fun getIdentResultUri(caseId: String): URI =
         URI.create("$identUri/$clientId/cases/$caseId/full?includeBinaryData=true")
 
-    fun getVideoZipFilename(caseId: String) =
-        "VIDEOCHATRECORDING_%s_%s_%s.zip".format(username, billingNumber, caseId)
 
     val authHeaderValue: String = "Basic %s".format(
         Base64.getEncoder().encodeToString("%s:%s".format(username, password).toByteArray())
