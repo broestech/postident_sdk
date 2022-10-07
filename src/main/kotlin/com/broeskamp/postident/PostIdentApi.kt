@@ -58,7 +58,7 @@ class PostIdentApi(
 
     fun retrieveVideoIdentZip(caseId: String): PostIdentFile {
         if (config.sftpConfig == null) {
-            throw IllegalArgumentException("Cannot retrieve Video without a SFTP Configuration")
+            throw ConfigurationMissingException("Cannot retrieve Video without a SFTP Configuration")
         }
         val sshClient = SSHClient()
         sshClient.addHostKeyVerifier(PromiscuousVerifier())
