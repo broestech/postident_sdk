@@ -112,4 +112,6 @@ class PostIdentApi(
         HttpRequest.newBuilder()
             .header(CONTENT_TYPE_HEADER_NAME, CONTENT_TYPE_HEADER_VALUE)
             .header(AUTHORIZATION_HEADER_NAME, config.authHeaderValue)
+            .header("x-scr-key", getScrKey())
+            .header("x-scr-keyhash", config.publicKeyHash)
 }
