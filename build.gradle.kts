@@ -5,6 +5,7 @@ val builderVersion = "1.2.1"
 val mockkVersion = "1.12.7"
 val loggingVersion = "2.0.2"
 val sshjVersion = "0.34.0"
+val joseJwtVersion = "9.25.4"
 
 plugins {
     `maven-publish`
@@ -26,7 +27,7 @@ dependencies {
     testImplementation("io.mockk:mockk:$mockkVersion")
     implementation("org.slf4j:slf4j-api:$loggingVersion")
     implementation("com.hierynomus:sshj:$sshjVersion")
-
+    implementation("com.nimbusds:nimbus-jose-jwt:$joseJwtVersion")
 }
 
 tasks.test {
