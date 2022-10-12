@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.nimbusds.jose.JWEObject
 import net.schmizz.sshj.SSHClient
 import net.schmizz.sshj.transport.verification.PromiscuousVerifier
 import net.schmizz.sshj.userauth.password.PasswordFinder
@@ -41,19 +42,19 @@ class PostIdentApi(
     }
 
     fun retrieveSigningCaseResult(caseId: String): CompletableFuture<SigningCaseResult> {
-        val request = getHttpRequestBuilder()
+        val request = getEncryptedHttpRequestBuilder()
             .uri(config.getSigningResultUri(caseId))
             .GET()
             .build()
-        return executeRequest(request, SigningCaseResult::class.java)
+        return executeRequest(request, SigningCaseResult::class.java, true)
     }
 
     fun retrieveIdentCaseResult(identCaseId: String): CompletableFuture<IdentCaseResult> {
-        val request = getHttpRequestBuilder()
+        val request = getEncryptedHttpRequestBuilder()
             .uri(config.getIdentResultUri(identCaseId))
             .GET()
             .build()
-        return executeRequest(request, IdentCaseResult::class.java)
+        return executeRequest(request, IdentCaseResult::class.java, true)
     }
 
     fun retrieveVideoIdentZip(caseId: String): PostIdentFile {
@@ -96,12 +97,20 @@ class PostIdentApi(
 
     private fun <T> executeRequest(
         request: HttpRequest,
-        responseClass: Class<T>
+        responseClass: Class<T>,
+        encrypted: Boolean = false
     ): CompletableFuture<T> {
         val futureResponse = config.httpClient.sendAsync(request, BodyHandlers.ofString())
         return futureResponse.thenApply { response ->
             if (response.statusCode() == HttpURLConnection.HTTP_CREATED || response.statusCode() == HttpURLConnection.HTTP_OK) {
-                return@thenApply mapper.readValue(response.body(), responseClass)
+                val responseBody: String = if (encrypted) {
+                    val jweObject = JWEObject.parse(response.body())
+                    jweObject.decrypt(config.rsaDecrypter)
+                    jweObject.payload.toString()
+                } else {
+                    response.body()
+                }
+                return@thenApply mapper.readValue(responseBody, responseClass)
             } else {
                 throw PostIdentApiException(request, response)
             }
@@ -112,4 +121,11 @@ class PostIdentApi(
         HttpRequest.newBuilder()
             .header(CONTENT_TYPE_HEADER_NAME, CONTENT_TYPE_HEADER_VALUE)
             .header(AUTHORIZATION_HEADER_NAME, config.authHeaderValue)
+
+
+    private fun getEncryptedHttpRequestBuilder(): HttpRequest.Builder =
+        getHttpRequestBuilder()
+            .header("x-scr-key", config.publicKeyHeaderValue)
+            .header("x-scr-keyhash", config.publicKeyHash)
+            .header("x-scr-alg", "RSA-OAEP-256")
 }

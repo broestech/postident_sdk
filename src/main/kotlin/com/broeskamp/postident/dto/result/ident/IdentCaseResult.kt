@@ -7,7 +7,7 @@ data class IdentCaseResult(
     val caseId: String,
     val caseStatus: CaseStatus,
     val orderData: OrderData?,
-    val contactData: ContactDataResult,
+    val contactData: ContactDataResult?,
     val identifications: List<IdentificationResult>,
     val accountingData: AccountingData,
 )
