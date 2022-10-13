@@ -2,13 +2,13 @@
 
 Java SDK for POSTIDENT by Deutsche Post.
 
-## Features ##
+## Features
 
 - Create SigningCase
 - Retrieve SigningCaseData (encrypted)
 - Retrieve IdentCaseData (encrypted)
 
-# How to use #
+# How to use
 
 For a local build you need to publish this to you local maven repository
 
@@ -16,7 +16,7 @@ For a local build you need to publish this to you local maven repository
 
 Afterwards you can use it as a dependency, for example:
 
-```
+``` xml
 <dependency>
   <groupId>com.broeskamp</groupId>
   <artifactId>postident_sdk</artifactId>
@@ -24,13 +24,13 @@ Afterwards you can use it as a dependency, for example:
 </dependency>
 ```
 
-## Encryption ##
+## Encryption
 
 PostIdent requires encryption to be present when fetching data from SigningCases or IdentCases.
 To use encryption you need to generate an RSA 3072 bit KeyPair and use the PCKS8 format for the
 private key.
 
-### Generate KeyPair ###
+### Generate KeyPair
 
 - Generate private RSA key: `openssl genrsa -out private_key.pem 3072`
 - Generate public key from private
@@ -38,13 +38,13 @@ private key.
 - Convert private Key to PCKS8
   format: `openssl pkcs8 -topk8 -inform PEM -in private_key.pem -out private_key -nocrypt`
 
-## SFTP ##
+## SFTP
 
 PostIdent hosts a SFTP server which contains files related to the ident (e.g. video recording).
 The authentication is done via an RSA 3072 bit KeyPair.
 The public key is then loaded into the PostIdent administration portal.
 
-### Generate KeyPair ###
+### Generate KeyPair
 
 For the generation we use PuTTY Key Generator.
 
