@@ -12,7 +12,7 @@ Java SDK for POSTIDENT by Deutsche Post.
 
 For a local build you need to publish this to you local maven repository
 
-`gradle publishToMavelLocal`
+`gradle publishToMavenLocal`
 
 Afterwards you can use it as a dependency, for example:
 
