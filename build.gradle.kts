@@ -6,6 +6,13 @@ val mockkVersion = "1.12.7"
 val loggingVersion = "2.0.2"
 val sshjVersion = "0.34.0"
 val joseJwtVersion = "9.25.4"
+val codeArtifactToken = System.getenv("CODEARTIFACT_AUTH_TOKEN")
+project.group = "com.broeskamp"
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
 
 plugins {
     `maven-publish`
@@ -38,13 +45,26 @@ tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
 
+if(codeArtifactToken == null || codeArtifactToken == ""){
+    project.logger.warn("Codeartifact Auth Token is null or empty.")
+} else {
+    project.logger.info("Successfully found Codeartifact Auth Token.")
+}
+
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = "com.broeskamp"
             artifactId = "postident_sdk"
-            version = "1.0-SNAPSHOT"
             from(components["java"])
+        }
+    }
+    repositories {
+        maven {
+            url = uri("https://broeskamp-843115942280.d.codeartifact.eu-central-1.amazonaws.com/maven/com.broeskamp.common/")
+            credentials {
+                username = "aws"
+                password = codeArtifactToken
+            }
         }
     }
 }
