@@ -48,5 +48,5 @@ jobs:
         run: |
           ./gradlew \
             -Pversion=${{ env.RELEASE_VERSION }} \
-            -Psigning.password="${{ secrets.OSSRH_GPG_SECRET_PGP_KEY_PASSWORD }}"
+            -Psigning.password="${{ secrets.OSSRH_GPG_SECRET_PGP_KEY_PASSWORD }}" \
             publishMavenJavaPublicationToMavenCentralRepository -i
