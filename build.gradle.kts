@@ -58,7 +58,9 @@ publishing {
             artifactId = "postident_sdk"
             from(components["java"])
             pom {
+                name.set(project.group.toString()+":"+artifactId)
                 description.set("Kotlin / JVM SDK for PostIdent and eSignature by Deutsche Post.")
+                url.set("https://github.com/broestech/postident_sdk")
                 packaging = "jar"
                 licenses {
                     license {
@@ -66,9 +68,30 @@ publishing {
                         url.set("https://github.com/broestech/postident_sdk/blob/production/LICENSE.md")
                         distribution.set("repository")
                     }
-                    scm {
-                        connection.set("scm:git:git://github.com/broestech/postident_sdk.git")
-                        developerConnection.set("scm:git:ssh://github.com/broestech/postident_sdk.git")
+                }
+                scm {
+                    connection.set("scm:git:git://github.com/broestech/postident_sdk.git")
+                    url.set("https://github.com/broestech/postident_sdk")
+                    developerConnection.set("scm:git:ssh://github.com/broestech/postident_sdk.git")
+                }
+                developers {
+                    developer {
+                        name.set("Simon Gehring")
+                        email.set("gehring.simon@broeskamp.com")
+                        organization.set("Bröskamp Consulting GmbH")
+                        organizationUrl.set("https://broeskamp.com")
+                    }
+                    developer {
+                        name.set("Viktor Ziegler")
+                        email.set("ziegler.viktor@broeskamp.com")
+                        organization.set("Bröskamp Consulting GmbH")
+                        organizationUrl.set("https://broeskamp.com")
+                    }
+                    developer {
+                        name.set("Huy Truong")
+                        email.set("truong.huy@broeskamp.com")
+                        organization.set("Bröskamp Consulting GmbH")
+                        organizationUrl.set("https://broeskamp.com")
                     }
                 }
             }
