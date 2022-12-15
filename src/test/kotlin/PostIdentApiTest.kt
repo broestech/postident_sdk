@@ -1,7 +1,4 @@
-import com.broeskamp.postident.PostIdentApi
-import com.broeskamp.postident.PostIdentApiException
-import com.broeskamp.postident.PostIdentConfiguration
-import com.broeskamp.postident.PostIdentSftpConfiguration
+import com.broeskamp.postident.*
 import com.broeskamp.postident.dto.request.ProcessDataBuilder
 import com.broeskamp.postident.dto.request.SigningCaseRequestBuilder
 import io.mockk.every
@@ -20,9 +17,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 import java.net.http.HttpClient
 import java.net.http.HttpResponse
 import java.net.http.HttpResponse.BodyHandlers
+import java.security.KeyPair
+import java.security.KeyPairGenerator
+import java.security.SecureRandom
 import java.time.LocalDate
+import java.util.Base64
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ExecutionException
+import kotlin.test.BeforeTest
 import kotlin.test.assertEquals
 
 @ExtendWith(MockKExtension::class)
@@ -34,6 +36,18 @@ class PostIdentApiTest {
     @MockK
     lateinit var response: HttpResponse<String>
 
+    lateinit var privateKey: String
+    lateinit var publicKey: String
+
+    @BeforeTest
+    fun setup(){
+        val generator = KeyPairGenerator.getInstance("RSA")
+
+        generator.initialize(2048, SecureRandom())
+        val keypair = generator.genKeyPair()
+        privateKey = Base64.getEncoder().encodeToString(keypair.private.encoded)
+        publicKey = Base64.getEncoder().encodeToString(keypair.public.encoded)
+    }
 
     @Test
     fun `test throw PostIdentApiException on statusCode != 200`() {
@@ -43,9 +57,13 @@ class PostIdentApiTest {
                 "password",
                 "clientId",
                 "http://base.url",
-                httpClient,
+                "dataPassword",
+                privateKey,
+                publicKey,
+                null,
+                httpClient
             )
-        val postIdentApi = PostIdentApi(postIdentConfiguration, null)
+        val postIdentApi = PostIdentApi(postIdentConfiguration)
 
         every { response.statusCode() } returns 404
         every { response.body() } returns ""
@@ -68,43 +86,52 @@ class PostIdentApiTest {
     }
 
     @Test
-    fun `test throw IllegalArgumentException on sftpConfig == null`() {
+    fun `test throw ConfigurationMissingException on sftpConfig == null`() {
         val postIdentConfiguration =
             PostIdentConfiguration(
                 "user",
                 "password",
                 "clientId",
                 "http://base.url",
-                httpClient,
+                "dataPassword",
+                privateKey,
+                publicKey,
+                null,
+                httpClient
             )
 
-        val postIdentApi = PostIdentApi(postIdentConfiguration, null)
+        val postIdentApi = PostIdentApi(postIdentConfiguration)
 
-        assertThrows<IllegalArgumentException> { postIdentApi.retrieveVideoIdentZip("anyId") }
+        assertThrows<ConfigurationMissingException> { postIdentApi.retrieveVideoIdentZip("anyId") }
     }
 
     @Test
     fun `test retrieveVideoIdentZip`() {
+        val sftpConfig = PostIdentSftpConfiguration(
+            "billing",
+            "host",
+            "path",
+            publicKey,
+            privateKey,
+            null,
+        )
+
         val config =
             PostIdentConfiguration(
                 "user",
                 "password",
                 "clientId",
                 "http://base.url",
-                httpClient,
+                "dataPassword",
+                privateKey,
+                publicKey,
+                sftpConfig,
+                httpClient
             )
 
-        val sftpConfig = PostIdentSftpConfiguration(
-            "billing",
-            "host",
-            "path",
-            "public",
-            "private",
-            null
-        )
         val caseId = "caseId"
 
-        val postIdentApi = PostIdentApi(config, sftpConfig)
+        val postIdentApi = PostIdentApi(config)
 
         val sftpClient = mockk<SFTPClient>()
         val remoteFile = mockk<RemoteFile>()
