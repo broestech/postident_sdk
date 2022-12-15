@@ -11,10 +11,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: burrunan/gradle-cache-action@v1
         name: Cache .gradle
-        with:
-          # Makes all non-production branch builds to use read-only caching
-          read-only: ${{ github.ref != 'refs/heads/production' }}
-
       - name: Test
         run: |
           ./gradlew test
