@@ -86,8 +86,8 @@ publishing {
         maven {
             name = "MavenCentral"
             credentials {
-                username = System.getenv("OSSRH_USERNAME") ?: project.properties["ossrhUsername"] as String?
-                password = System.getenv("OSSRH_PASSWORD") ?: project.properties["ossrhPassword"] as String?
+                username = System.getenv("OSSRH_USERNAME") ?: project.properties["ossrhUsername"] as String? ?: ""
+                password = System.getenv("OSSRH_PASSWORD") ?: project.properties["ossrhPassword"] as String? ?: ""
 
                 if (username!!.isEmpty()) {
                     project.logger.error("Username for maven central is empty")
