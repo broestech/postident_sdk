@@ -16,7 +16,11 @@ jobs:
       - name: Set tags env
         run: echo "RELEASE_VERSION=${GITHUB_REF##*/}" >> $GITHUB_ENV
 
-      - name: Gradle Publish
+      - name: Gradle publish internally
         run: | 
           export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain broeskamp --domain-owner 843115942280 --region eu-central-1 --query authorizationToken --output text`
-          gradle -Pversion=${{ env.RELEASE_VERSION }} publish -i
+          ./gradlew -Pversion=${{ env.RELEASE_VERSION }} publishMavenJavaPublicationToInternalRepository -i
+
+      - name: Gradle publish publicly
+        run: |
+          ./gradlew -Pversion=${{ env.RELEASE_VERSION }} publishMavenJavaPublicationToMavenCentralRepository -i
