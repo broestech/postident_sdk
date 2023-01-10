@@ -17,6 +17,7 @@ java {
 plugins {
     kotlin("jvm") version "1.7.10"
     kotlin("kapt") version "1.7.10"
+    id("io.codearte.nexus-staging") version "0.30.0"
     id("maven-publish")
     id("signing")
 }
@@ -51,6 +52,10 @@ if(codeArtifactToken == null || codeArtifactToken == ""){
 } else {
     project.logger.info("Successfully found Codeartifact Auth Token.")
 }
+val ossrhUsername = System.getenv("OSSRH_USERNAME") ?: project.properties["ossrhUsername"] as String? ?: ""
+val ossrhPassword = System.getenv("OSSRH_PASSWORD") ?: project.properties["ossrhPassword"] as String? ?: ""
+
+
 
 publishing {
     publications {
@@ -109,8 +114,8 @@ publishing {
         maven {
             name = "MavenCentral"
             credentials {
-                username = System.getenv("OSSRH_USERNAME") ?: project.properties["ossrhUsername"] as String? ?: ""
-                password = System.getenv("OSSRH_PASSWORD") ?: project.properties["ossrhPassword"] as String? ?: ""
+                username = ossrhUsername
+                password = ossrhPassword
 
                 if (username!!.isEmpty()) {
                     project.logger.error("Username for maven central is empty")
@@ -123,10 +128,16 @@ publishing {
                 uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
             else
                 uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+
         }
     }
 }
 
+nexusStaging {
+    serverUrl = "https://s01.oss.sonatype.org/service/local/"
+    username = ossrhUsername
+    password = ossrhPassword
+}
 
 signing {
     val signingKey: String? by project
