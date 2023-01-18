@@ -1,6 +1,6 @@
 # PostIdent SDK
 
-A Kotlin based SDK for the PostIdent and E-Signature service of deutsche Post. Allows for creating, managing and retrieving the results of signging and ident cases.
+A Kotlin based SDK for the PostIdent and E-Signature service of Deutsche Post. Allows for creating, managing and retrieving the results of signging and ident cases.
 
 Table of Contents
 =================
@@ -69,11 +69,11 @@ Now create a `PostIdentConfiguration` object and pass it into a `PostIdentApi`.
 ```
 
 `username: String`: required. The PostIdent Username given by Deutsche Post.  
-`password: String`: required. The PostIdent Password given by Deutsche Post.    
-`clientId: String`: required. The Client ID given by Deutsche Post.
-`baseUrl: String`: required. The baseUrl of the PostIdent API. Used to target different environments and might differ for your tenant.
+`password: String`: required. The PostIdent Password given by Deutsche Post.  
+`clientId: String`: required. The Client ID given by Deutsche Post.  
+`baseUrl: String`: required. The baseUrl of the PostIdent API. Used to target different environments and might differ for your tenant.  
 `dataPassword: String`: required. The password that is used to encrypt the transmitted ZIP archives.  
-`privateKey: String`: required. A private key in PEM-Format to encrypt the transmitted data. Might include the typical pre- and suffix for private keys and (unix) linebreaks.   
+`privateKey: String`: required. A private key in PEM-Format to encrypt the transmitted data. Might include the typical pre- and suffix for private keys and (unix) linebreaks.     
 `publicKey: String`: required. A public key in PEM-Format to encrypt the transmitted data. Might include the typical pre- and suffix for public keys and (unix) linebreaks.
 
 Optionally you can provide a `PostIdentSftpConfiguration` if you want to actually download the ident-files within the application. This is only used for the video files that are captured during the identification process. This is not needed to download the signed documents.
@@ -92,11 +92,11 @@ Optionally you can provide a `PostIdentSftpConfiguration` if you want to actuall
   )
 ```
 
-`billingNumber: String`: required. The billing number given by Deutsche Post. It is used to locate the correct files as they include the billing number.  
+`billingNumber: String`: required. The billing number given by Deutsche Post. It is used to locate the correct files as they include the billing number.    
 `host: String`: required. The domain to connect to via FTPS. Given by Deutsche Post.  
 `path: String`: required. Your customized folder name / path on the FTP server. Connect once by hand to find out this name.  
-`privateKey: String`: required. A private key in openssh-Format to encrypt the transmitted data. Might include the typical pre- and suffix for private keys in openssh-format and (unix) linebreaks.   
-`publicKey: String`: required. A public key in openssh-Format to encrypt the transmitted data. Might include the typical pre- and suffix for public keys in openssh-format and (unix) linebreaks.
+`privateKey: String`: required. A private key in openssh-Format to encrypt the transmitted data. Might include the typical pre- and suffix for private keys in openssh-format and (unix) linebreaks.     
+`publicKey: String`: required. A public key in openssh-Format to encrypt the transmitted data. Might include the typical pre- and suffix for public keys in openssh-format and (unix) linebreaks.  
 
 The keypair used for the SFTP-transfer might or might not be the same as used by the `PostIdentConfiguration` object.
 
