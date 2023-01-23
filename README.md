@@ -97,13 +97,14 @@ Optionally you can provide a `PostIdentSftpConfiguration` if you want to actuall
 `path: String`: required. Your customized folder name / path on the FTP server. Connect once by hand to find out this name.  
 `privateKey: String`: required. A private key in openssh-Format to encrypt the transmitted data. Might include the typical pre- and suffix for private keys in openssh-format and (unix) linebreaks.     
 `publicKey: String`: required. A public key in openssh-Format to encrypt the transmitted data. Might include the typical pre- and suffix for public keys in openssh-format and (unix) linebreaks.  
+`keyPassword: String`: optional. The password that was used to decrypt the private key. Can be `null` if the private is not encrypted.
 
 The keypair used for the SFTP-transfer might or might not be the same as used by the `PostIdentConfiguration` object.
 
 Afterwards you can create the API access object
 
 ```kotlin
-  val api = PostIdentApi(postIdentConfiguration)
+val api = PostIdentApi(postIdentConfiguration)
 ```
 
 ### Methods
@@ -113,7 +114,7 @@ Afterwards you can create the API access object
 ```kotlin
 fun createSigningCase(signingCaseRequest: SigningCaseRequest): CompletableFuture<SigningCaseResponse>
 ```
-Creates a **Signing Case** (and implicitly an **IdentCase**) (asynchronously). On success sends an email with further instructions to the customer. The request contains the documents to sign, a list of all signers, custom data (for case identification when retrieving an updating webhook) and customization options like the webhook URL, name of the document, validity dates and label of the signing button. For complete documentation 
+Creates a **Signing Case** (and implicitly an **IdentCase**) (asynchronously). On success sends an email with further instructions to the customer. The request contains the documents to sign, a list of all signers, custom data (for case identification when retrieving an updating webhook) and customization options like the webhook URL, name of the document, validity dates and label of the signing button. 
 
 ```kotlin
 fun retrieveIdentCaseResult(identCaseId: String): CompletableFuture<IdentCaseResult>
@@ -123,7 +124,7 @@ Retrieves the current state of an **Ident Case**. This is not to be confused wit
 ```kotlin
 fun retrieveSigningCaseResult(caseId: String): CompletableFuture<SigningCaseResult>
 ```
-Retrieves the current state of a **Signing Case**. This is not to be confused with an **Ident Case **. Uses the keypair provided in the  for encryption.
+Retrieves the current state of a **Signing Case**. This is not to be confused with an **Ident Case**. Uses the keypair provided in the  for encryption.
 
 ```kotlin
 fun retrieveVideoIdentZip(caseId: String): PostIdentFile
