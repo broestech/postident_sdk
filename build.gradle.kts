@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val jacksonVersion = "2.14.1"
-val builderVersion = "1.2.1"
+val builderVersion = "1.2.2"
 val mockkVersion = "1.12.7"
 val loggingVersion = "2.0.2"
 val sshjVersion = "0.34.0"
