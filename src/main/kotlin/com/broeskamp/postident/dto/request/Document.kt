@@ -69,5 +69,5 @@ data class Document(
     /**
      * Position of the signature stamp. This Field could be overwritten by the signatureStamp Position in SignerDocumentInfo.
      */
-    val signatureStampPosition: SignatureStampPosition
+    val signatureStampPosition: SignatureStampPosition?
 )
