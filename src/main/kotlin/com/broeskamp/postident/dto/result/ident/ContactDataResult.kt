@@ -52,6 +52,6 @@ data class ContactDataResult(
     /**
      * Customer's postal address.
      */
-    val address: AddressResult,
+    val address: AddressResult?,
 
 )

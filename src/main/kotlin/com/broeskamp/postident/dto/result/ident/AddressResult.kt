@@ -9,7 +9,7 @@ data class AddressResult(
      *
      * @sample "Musterstreet 12"
      */
-    val streetAddress: ResultValue,
+    val streetAddress: ResultValue?,
 
     /**
      * Contains a address appendix.
@@ -23,21 +23,21 @@ data class AddressResult(
      *
      * @sample "53113"
      */
-    val postalCode: ResultValue,
+    val postalCode: ResultValue?,
 
     /**
      * Name of city or town.
      *
      * @sample "Bonn"
      */
-    val city: ResultValue,
+    val city: ResultValue?,
 
     /**
      * Country code accouding to ISO-3166 ALPHA-3 plus RKS for Kosovo.
      *
      * @sample "DEU"
      */
-    val country: ResultValue,
+    val country: ResultValue?,
 
     /**
      * Result of address comparison (if needed).
