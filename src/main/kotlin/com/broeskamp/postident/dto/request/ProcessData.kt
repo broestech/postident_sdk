@@ -2,6 +2,10 @@ package com.broeskamp.postident.dto.request
 
 import com.broeskamp.postident.dto.PreferredLanguage
 
+/**
+ * Abstract process data for the data both processes, ident and e-signing,
+ * need.
+ */
 abstract class ProcessData {
 
     /**
