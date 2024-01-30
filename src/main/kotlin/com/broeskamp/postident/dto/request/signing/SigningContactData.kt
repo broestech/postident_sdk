@@ -1,9 +1,9 @@
-package com.broeskamp.postident.dto.request
+package com.broeskamp.postident.dto.request.signing
 
 import com.thinkinglogic.builder.annotation.Builder
 
 @Builder
-data class ContactData(
+data class SigningContactData(
 
     /**
      * Country code plus phone number. Must be unique in a signing case.
@@ -28,9 +28,7 @@ data class ContactData(
      */
     val email: String,
 
-    /**
-     * Max length: 320
-     */
+    /** Max length: 320 */
     val epost: String?,
 
     )

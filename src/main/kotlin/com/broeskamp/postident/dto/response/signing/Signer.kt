@@ -1,4 +1,4 @@
-package com.broeskamp.postident.dto.response
+package com.broeskamp.postident.dto.response.signing
 
 import com.thinkinglogic.builder.annotation.Builder
 
@@ -11,5 +11,5 @@ data class Signer(
      */
     val signerNumber: Number,
 
-    val webStart: WebStart,
+    val webStart: SigningWebStart,
 )

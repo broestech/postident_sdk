@@ -1,12 +1,14 @@
-package com.broeskamp.postident.dto.request
+package com.broeskamp.postident.dto.request.signing
 
+import com.broeskamp.postident.dto.request.signing.SignatureStampPosition
 import com.thinkinglogic.builder.annotation.Builder
 
 @Builder
 data class Document(
 
     /**
-     * The display name of the document to be shown to the user in the signing process
+     * The display name of the document to be shown to the user in the signing
+     * process
      *
      * Max length: 50
      *
@@ -24,7 +26,8 @@ data class Document(
     val referenceId: String?,
 
     /**
-     * Mark with true if document has to be signed. All documents have to be marked with hasToBeSigned = true.
+     * Mark with true if document has to be signed. All documents have to be
+     * marked with hasToBeSigned = true.
      */
     val hasToBeSigned: Boolean,
 
@@ -58,16 +61,21 @@ data class Document(
     val documentData: String,
 
     /**
-     * Name of the pdf form field that should be used for holding the signature stamp. The field must be of type "signature" and have the size 72,5 mm x 24,0 mm.
+     * Name of the pdf form field that should be used for holding the signature
+     * stamp. The field must be of type "signature" and have the size 72,5 mm x
+     * 24,0 mm.
      *
-     * This field can be overwritten by the signatureFieldName in SignerDocumentInfo. This parameter takes precedence over signatureStampPosition.
+     * This field can be overwritten by the signatureFieldName in
+     * SignerDocumentInfo. This parameter takes precedence over
+     * signatureStampPosition.
      *
      * Max length: 10
      */
     val signatureFieldName: String?,
 
     /**
-     * Position of the signature stamp. This Field could be overwritten by the signatureStamp Position in SignerDocumentInfo.
+     * Position of the signature stamp. This Field could be overwritten by the
+     * signatureStamp Position in SignerDocumentInfo.
      */
     val signatureStampPosition: SignatureStampPosition?
 )

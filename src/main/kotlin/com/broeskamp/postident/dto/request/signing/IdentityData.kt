@@ -1,4 +1,4 @@
-package com.broeskamp.postident.dto.request
+package com.broeskamp.postident.dto.request.signing
 
 import com.broeskamp.postident.dto.Address
 import com.thinkinglogic.builder.annotation.Builder
@@ -33,7 +33,8 @@ data class IdentityData(
     val lastName: String,
 
     /**
-     * Only if differing from last name. Do not include prefixes like „geb.“ or „Geborene“
+     * Only if differing from last name. Do not include prefixes like „geb.“ or
+     * „Geborene“
      *
      * Max length: 35
      *
@@ -58,7 +59,8 @@ data class IdentityData(
     val birthPlace: String?,
 
     /**
-     * two-letter ISO3166-1 alpha-2, three-letter ISO3166-1 alpha-3 and RKS / XK for Kosovar
+     * two-letter ISO3166-1 alpha-2, three-letter ISO3166-1 alpha-3 and RKS /
+     * XK for Kosovar
      *
      * Max length: 3
      *
@@ -70,7 +72,10 @@ data class IdentityData(
     val address: Address?,
 
     /**
-     * Flag to indicate if the provided data has already been verified by the client. If true the identification will be skipped. Requires a corresponding contractual agreement and special setup of client configuration.
+     * Flag to indicate if the provided data has already been verified by
+     * the client. If true the identification will be skipped. Requires
+     * a corresponding contractual agreement and special setup of client
+     * configuration.
      */
     val identityVerified: Boolean?,
 
