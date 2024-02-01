@@ -1,4 +1,4 @@
-package com.broeskamp.postident.dto.result.sign
+package com.broeskamp.postident.dto.result.signing
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.thinkinglogic.builder.annotation.Builder
@@ -16,7 +16,9 @@ data class SignerResult(
     val signerNumber: String,
 
     /**
-     * ID of the corresponding video ident case, available beginning with status identification. Can be used to query ident status and detailed ident data from the SCR-Ident API
+     * ID of the corresponding video ident case, available beginning with
+     * status identification. Can be used to query ident status and detailed
+     * ident data from the SCR-Ident API
      *
      * Max length: 12
      *
@@ -47,7 +49,8 @@ data class SignerResult(
     val modified: LocalDate?, //TODO instant
 
     /**
-     * Date and time of successful identification. ISO 8601 format, accuracy in seconds, the offset to Zulu time ±hh:mm at the end
+     * Date and time of successful identification. ISO 8601 format, accuracy in
+     * seconds, the offset to Zulu time ±hh:mm at the end
      *
      * Max length: 26
      *
@@ -65,7 +68,8 @@ data class SignerResult(
     val identificationMethod: String?,
 
     /**
-     * Date and time of successful signing of the documents. ISO 8601 format, accuracy in seconds, the offset to Zulu time ±hh:mm at the end
+     * Date and time of successful signing of the documents. ISO 8601 format,
+     * accuracy in seconds, the offset to Zulu time ±hh:mm at the end
      *
      * Max length: 26
      *
@@ -83,17 +87,21 @@ data class SignerResult(
     val termsAndConditionsAcceptedTime: Instant?,
 
     /**
-     * Only relevant if E-Mail communication by E-Signing System is deactivated:
+     * Only relevant if E-Mail communication by E-Signing System is
+     * deactivated:
      *
      * If true:
-     *
-     * - if identification **succeeded** you have to notify the user to continue the signature process (signer state equals "signing process")
-     * - if identification **failed** you have to notify the user that signature process is declined (signer state equals "declined" and subStatus equals "ident declined").
+     * - if identification **succeeded** you have to notify the user to
+     *   continue the signature process (signer state equals "signing process")
+     * - if identification **failed** you have to notify the user that
+     *   signature process is declined (signer state equals "declined" and
+     *   subStatus equals "ident declined").
      */
     val notifyUserAboutSigningState: Boolean?,
 
     /**
-     * Time when signer confirms reading all documents. Will be provided if this feature was specified in the signing case using SCR-Signing POST
+     * Time when signer confirms reading all documents. Will be provided if
+     * this feature was specified in the signing case using SCR-Signing POST
      *
      * Max length: 26
      *
@@ -117,7 +125,9 @@ data class SignerResult(
     val identificationDocument: IdentificationDocument?,
 
     /**
-     * Indexes of the documents signed by the given signer. The indexes are pointers in the documents list of the case. First document in the list has the position 1.
+     * Indexes of the documents signed by the given signer. The indexes are
+     * pointers in the documents list of the case. First document in the list
+     * has the position 1.
      */
     val signedDocuments: List<Number>,
 
@@ -145,18 +155,18 @@ data class SignerResult(
 
 
     /**
-     * Substatus describing the status on a more detailed level. Possible values:
-     *
+     * Substatus describing the status on a more detailed level. Possible
+     * values:
      * - signerStatus 'declined':
-     *      - signing declined
-     *      - mobil phone number not verified
-     *      - ident declined
-     *      - maximum number of started operations exceeded
-     *      - maximum number of created certificates exceeded
-     *      - maximum number of sent sms exceeded
-     *      - other signer was declined
+     *    - signing declined
+     *    - mobil phone number not verified
+     *    - ident declined
+     *    - maximum number of started operations exceeded
+     *    - maximum number of created certificates exceeded
+     *    - maximum number of sent sms exceeded
+     *    - other signer was declined
      * - signerStatus 'declined', 'signing process'
-     *      - prolongued duration of identification postprocess
+     *    - prolongued duration of identification postprocess
      */
     enum class SignerSubStatus {
         @JsonProperty("signing declined")

@@ -1,11 +1,12 @@
-package com.broeskamp.postident.dto.result.sign
+package com.broeskamp.postident.dto.result.signing
 
 import com.thinkinglogic.builder.annotation.Builder
 
 @Builder
 data class AccountingData(
     /**
-     * Unique identifier for invoicing (dt. Abrechnungsnummer); also used as identifier of a client configuration
+     * Unique identifier for invoicing (dt. Abrechnungsnummer); also used as
+     * identifier of a client configuration
      *
      * Max length: 14
      *
@@ -18,7 +19,7 @@ data class AccountingData(
      *
      * Max length: 10
      *
-     *  @sample "906800034"
+     * @sample "906800034"
      */
     val accountingProduct: String?,
 )

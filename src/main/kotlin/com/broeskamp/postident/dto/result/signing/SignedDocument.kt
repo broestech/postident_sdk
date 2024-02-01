@@ -1,13 +1,11 @@
-package com.broeskamp.postident.dto.result.sign
+package com.broeskamp.postident.dto.result.signing
 
 import com.thinkinglogic.builder.annotation.Builder
 
 @Builder
 data class SignedDocument(
 
-    /**
-     * Max length: 30
-     */
+    /** Max length: 30 */
     val referenceId: String?,
 
     /**

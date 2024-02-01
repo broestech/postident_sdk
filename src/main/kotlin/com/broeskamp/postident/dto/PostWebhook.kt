@@ -1,9 +1,6 @@
 package com.broeskamp.postident.dto
 
-import com.thinkinglogic.builder.annotation.Builder
-
-@Builder
-data class SigningWebhook(
+data class PostWebhook(
     val caseId: String,
     val referenceId: String?,
 )

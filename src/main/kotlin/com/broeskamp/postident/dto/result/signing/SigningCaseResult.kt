@@ -1,13 +1,11 @@
-package com.broeskamp.postident.dto.result.sign
+package com.broeskamp.postident.dto.result.signing
 
 import com.broeskamp.postident.dto.CustomData
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.thinkinglogic.builder.annotation.Builder
 import java.time.LocalDate
 
-/**
- * DTO received when requesting result of signing case
- */
+/** DTO received when requesting result of signing case */
 @Builder
 data class SigningCaseResult(
 
@@ -18,14 +16,10 @@ data class SigningCaseResult(
      */
     val caseId: String,
 
-    /**
-     * @sample "signed"
-     */
+    /** @sample "signed" */
     val caseStatus: CaseStatus,
 
-    /**
-     * @sample "validity period expired"
-     */
+    /** @sample "validity period expired" */
     val caseSubStatus: CaseSubStatus?,
 
     /**
@@ -57,16 +51,19 @@ data class SigningCaseResult(
     val signers: List<SignerResult>,
 
     /**
-     *  The signing case URL will expire and the signing case will be cancelled at the end of this day. ISO 8601 format
+     * The signing case URL will expire and the signing case will be cancelled
+     * at the end of this day. ISO 8601 format
      *
-     *  Max length: 10
+     * Max length: 10
      *
-     *  @sample "2017-01-28"
+     * @sample "2017-01-28"
      */
     val validUntil: LocalDate?,
 
     /**
-     * The signed documents will be available for download by the user and via SCR-Signing until the end of this day. Afterwards the signing case will be transitioned to the state closed. ISO 8601 format
+     * The signed documents will be available for download by the user and via
+     * SCR-Signing until the end of this day. Afterwards the signing case will
+     * be transitioned to the state closed. ISO 8601 format
      *
      * Max length: 10
      *
@@ -95,10 +92,10 @@ data class SigningCaseResult(
 
     /**
      * - for caseStatus declined:
-     *      - validity period expired
-     *      - signer was declined
+     *    - validity period expired
+     *    - signer was declined
      * - for caseStatus closed:
-     *      - archived
+     *    - archived
      */
     enum class CaseSubStatus {
         @JsonProperty("validity period expired")

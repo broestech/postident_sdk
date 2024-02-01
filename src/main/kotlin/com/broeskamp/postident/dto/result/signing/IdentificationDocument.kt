@@ -1,4 +1,4 @@
-package com.broeskamp.postident.dto.result.sign
+package com.broeskamp.postident.dto.result.signing
 
 import com.broeskamp.postident.dto.DocumentType
 import com.thinkinglogic.builder.annotation.Builder
@@ -8,9 +8,7 @@ import java.time.LocalDate
 data class IdentificationDocument(
     val type: DocumentType,
 
-    /**
-     * Max length: 20
-     */
+    /** Max length: 20 */
     val number: String,
 
     /**

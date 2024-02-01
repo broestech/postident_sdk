@@ -1,37 +1,25 @@
-package com.broeskamp.postident.dto.result.sign
+package com.broeskamp.postident.dto.result.signing
 
 import com.thinkinglogic.builder.annotation.Builder
 
 @Builder
 data class IdentifyDataResult(
-    /**
-     * Max value length: 35
-     */
+    /** Max value length: 35 */
     val title: ResultValue?,
 
-    /**
-     * Max value length: 55
-     */
+    /** Max value length: 55 */
     val firstName: ResultValue,
 
-    /**
-     * Max value length: 55
-     */
+    /** Max value length: 55 */
     val lastName: ResultValue,
 
-    /**
-     * Max value length: 55
-     */
+    /** Max value length: 55 */
     val birthName: ResultValue?,
 
-    /**
-     * Max value length: 10
-     */
+    /** Max value length: 10 */
     val birthDate: ResultValue,
 
-    /**
-     * Max value length: 55
-     */
+    /** Max value length: 55 */
     val birthPlace: ResultValue,
 
     /**
