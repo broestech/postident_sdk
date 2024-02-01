@@ -1,4 +1,5 @@
-import com.broeskamp.postident.*
+package com.broeskamp.postident
+
 import com.broeskamp.postident.dto.request.signing.SigningCaseProcessDataBuilder
 import com.broeskamp.postident.dto.request.signing.SigningCaseRequestBuilder
 import io.mockk.every

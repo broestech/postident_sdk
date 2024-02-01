@@ -17,7 +17,7 @@ internal object RsaKeypairUtil {
 
     private val logger = LoggerFactory.getLogger(RsaKeypairUtil.javaClass)
 
-    private fun doRsaKeysMatch(
+    internal fun doRsaKeysMatch(
         publicKey: PublicKey,
         privateKey: PrivateKey
     ): Boolean {
