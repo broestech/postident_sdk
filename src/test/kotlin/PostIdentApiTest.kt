@@ -1,6 +1,6 @@
 import com.broeskamp.postident.*
-import com.broeskamp.postident.dto.request.ProcessDataBuilder
-import com.broeskamp.postident.dto.request.SigningCaseRequestBuilder
+import com.broeskamp.postident.dto.request.signing.SigningCaseProcessDataBuilder
+import com.broeskamp.postident.dto.request.signing.SigningCaseRequestBuilder
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
@@ -17,11 +17,10 @@ import org.junit.jupiter.api.extension.ExtendWith
 import java.net.http.HttpClient
 import java.net.http.HttpResponse
 import java.net.http.HttpResponse.BodyHandlers
-import java.security.KeyPair
 import java.security.KeyPairGenerator
 import java.security.SecureRandom
 import java.time.LocalDate
-import java.util.Base64
+import java.util.*
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ExecutionException
 import kotlin.test.BeforeTest
@@ -40,7 +39,7 @@ class PostIdentApiTest {
     lateinit var publicKey: String
 
     @BeforeTest
-    fun setup(){
+    fun setup() {
         val generator = KeyPairGenerator.getInstance("RSA")
 
         generator.initialize(2048, SecureRandom())
@@ -75,10 +74,11 @@ class PostIdentApiTest {
         } returns CompletableFuture.completedFuture(response)
 
 
-        val signingCaseRequest = SigningCaseRequestBuilder().processData(
-            ProcessDataBuilder().caseName("").validUntil(LocalDate.now()).build()
-        )
-            .documents(listOf()).signers(listOf()).build()
+        val signingCaseRequest =
+            SigningCaseRequestBuilder().processData(
+                SigningCaseProcessDataBuilder().validUntil(LocalDate.now()).build()
+            )
+                .documents(listOf()).signers(listOf()).build()
 
         assertThrows<ExecutionException>("Should have thrown ExecutionException") {
             postIdentApi.createSigningCase(signingCaseRequest).get()
