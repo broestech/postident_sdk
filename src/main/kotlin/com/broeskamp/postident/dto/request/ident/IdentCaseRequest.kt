@@ -9,7 +9,7 @@ import com.thinkinglogic.builder.annotation.Builder
 data class IdentCaseRequest(
 
     /** Properties which control the behavior, such as callback URLs. */
-    val processData: IdentCaseProcessData,
+    val processData: IdentCaseProcessData = IdentCaseProcessData(),
 
     /**
      * Initial contact data of the user provided by the client (business
@@ -19,14 +19,14 @@ data class IdentCaseRequest(
      * this data if available. If not provided, the user will be asked by the
      * POSTIDENT system, before he can proceed with the identification process.
      */
-    val contactDataProvided: IdentContactData,
+    val contactDataProvided: IdentContactData = IdentContactData(),
 
     /**
      * Initial data of the identificationDocument provided by the client
      * (business customer). Please only provide this data if it's taken from
      * the identification document.
      */
-    val identificationDocumentProvided: IdentDocumentData,
+    val identificationDocumentProvided: IdentDocumentData = IdentDocumentData(),
 
     val drivingLicenceProvided: IdentDrivingLicenceData? = null,
 

@@ -1,7 +1,7 @@
 package com.broeskamp.postident.dto.request.ident
 
 data class IdentDocumentData(
-    val type: IdentificationDocumentType?,
+    val type: IdentificationDocumentType? = null,
 
     /** @sample "T22000129" */
     val number: String? = null,

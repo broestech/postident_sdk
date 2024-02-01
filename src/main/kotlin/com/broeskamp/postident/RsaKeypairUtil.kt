@@ -46,7 +46,7 @@ internal object RsaKeypairUtil {
 
     private val keyDelimiterRegex = Regex("-----[A-Za-z ]+?-----")
 
-    internal fun stripKeyFromDelimiterAndWhitespaces(key: String): String {
+    private fun stripKeyFromDelimiterAndWhitespaces(key: String): String {
         return key
             .replace("\n", "")
             .replace("\r", "")
