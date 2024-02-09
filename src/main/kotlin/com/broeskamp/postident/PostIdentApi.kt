@@ -1,10 +1,12 @@
 package com.broeskamp.postident
 
 
-import com.broeskamp.postident.dto.request.SigningCaseRequest
-import com.broeskamp.postident.dto.response.SigningCaseResponse
+import com.broeskamp.postident.dto.request.ident.IdentCaseRequest
+import com.broeskamp.postident.dto.request.signing.SigningCaseRequest
+import com.broeskamp.postident.dto.response.ident.IdentCaseResponse
+import com.broeskamp.postident.dto.response.signing.SigningCaseResponse
 import com.broeskamp.postident.dto.result.ident.IdentCaseResult
-import com.broeskamp.postident.dto.result.sign.SigningCaseResult
+import com.broeskamp.postident.dto.result.signing.SigningCaseResult
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
@@ -39,6 +41,14 @@ class PostIdentApi(
             .POST(BodyPublishers.ofString(mapper.writeValueAsString(signingCaseRequest)))
             .build()
         return executeRequest(request, SigningCaseResponse::class.java)
+    }
+
+    fun createIdentCase(identCaseRequest: IdentCaseRequest): CompletableFuture<IdentCaseResponse> {
+        val request = getHttpRequestBuilder()
+            .uri(config.getIdentUri())
+            .POST(BodyPublishers.ofString(mapper.writeValueAsString(identCaseRequest)))
+            .build()
+        return executeRequest(request, IdentCaseResponse::class.java)
     }
 
     fun retrieveSigningCaseResult(caseId: String): CompletableFuture<SigningCaseResult> {

@@ -33,6 +33,7 @@ dependencies {
     implementation("com.thinkinglogic.builder:kotlin-builder-annotation:$builderVersion")
     kapt("com.thinkinglogic.builder:kotlin-builder-processor:$builderVersion")
     testImplementation("io.mockk:mockk:$mockkVersion")
+    testImplementation("ch.qos.logback:logback-classic:1.4.14")
     implementation("org.slf4j:slf4j-api:$loggingVersion")
     implementation("com.hierynomus:sshj:$sshjVersion")
     implementation("com.nimbusds:nimbus-jose-jwt:$joseJwtVersion")
@@ -46,7 +47,7 @@ tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
 
-if(codeArtifactToken == null || codeArtifactToken == ""){
+if (codeArtifactToken == null || codeArtifactToken == "") {
     project.logger.warn("Codeartifact Auth Token is null or empty.")
 } else {
     project.logger.info("Successfully found Codeartifact Auth Token.")
@@ -58,7 +59,7 @@ publishing {
             artifactId = "postident_sdk"
             from(components["java"])
             pom {
-                name.set(project.group.toString()+":"+artifactId)
+                name.set(project.group.toString() + ":" + artifactId)
                 description.set("Kotlin / JVM SDK for PostIdent and eSignature by Deutsche Post.")
                 url.set("https://github.com/broestech/postident_sdk")
                 packaging = "jar"
@@ -100,7 +101,8 @@ publishing {
     repositories {
         maven {
             name = "Internal"
-            url = uri("https://broeskamp-843115942280.d.codeartifact.eu-central-1.amazonaws.com/maven/com.broeskamp.common/")
+            url =
+                uri("https://broeskamp-843115942280.d.codeartifact.eu-central-1.amazonaws.com/maven/com.broeskamp.common/")
             credentials {
                 username = "aws"
                 password = codeArtifactToken
@@ -109,8 +111,10 @@ publishing {
         maven {
             name = "MavenCentral"
             credentials {
-                username = System.getenv("OSSRH_USERNAME") ?: project.properties["ossrhUsername"] as String? ?: ""
-                password = System.getenv("OSSRH_PASSWORD") ?: project.properties["ossrhPassword"] as String? ?: ""
+                username = System.getenv("OSSRH_USERNAME")
+                    ?: project.properties["ossrhUsername"] as String? ?: ""
+                password = System.getenv("OSSRH_PASSWORD")
+                    ?: project.properties["ossrhPassword"] as String? ?: ""
 
                 if (username!!.isEmpty()) {
                     project.logger.error("Username for maven central is empty")
