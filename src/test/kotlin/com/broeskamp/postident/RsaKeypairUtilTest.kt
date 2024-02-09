@@ -22,8 +22,31 @@ class RsaKeypairUtilTest {
 
         val keyPair = RsaKeypairUtil.generateKeypair(private, public)
 
-        assertTrue(public.contains(encodeKey(keyPair.public, X509EncodedKeySpec::class.java)))
-        assertTrue(private.contains(encodeKey(keyPair.private, PKCS8EncodedKeySpec::class.java)))
+        val encodedActualPublicKey = encodeKey(
+            keyPair.public,
+            X509EncodedKeySpec::class.java
+        )
+        val encodedActualPrivateKey = encodeKey(
+            keyPair.private,
+            PKCS8EncodedKeySpec::class.java
+        )
+
+        assertTrue(
+            stripKeyFromDelimiterAndWhitespaces(public).contains(
+                stripKeyFromDelimiterAndWhitespaces(
+                    encodedActualPublicKey
+                )
+            ),
+            "Assumed \"$public\" to contain \"$encodedActualPublicKey\", but wasn't."
+        )
+        assertTrue(
+            stripKeyFromDelimiterAndWhitespaces(private).contains(
+                stripKeyFromDelimiterAndWhitespaces(
+                    encodedActualPrivateKey
+                )
+            ),
+            "Assumed \"$private\" to contain \"$encodedActualPrivateKey\", but wasn't."
+        )
     }
 
     @Test
@@ -52,7 +75,20 @@ class RsaKeypairUtilTest {
 
         val keyPair = RsaKeypairUtil.generateKeypair(private, null)
 
-        assertTrue(private.contains(encodeKey(keyPair.private, PKCS8EncodedKeySpec::class.java)))
+
+        val encodedActualPrivateKey = encodeKey(
+            keyPair.private,
+            PKCS8EncodedKeySpec::class.java
+        )
+        assertTrue(
+            stripKeyFromDelimiterAndWhitespaces(private).contains(
+                stripKeyFromDelimiterAndWhitespaces(
+                    encodedActualPrivateKey
+                )
+            ),
+            "Assumed \"$private\" to contain \"$encodedActualPrivateKey\", but wasn't."
+
+        )
         assertTrue(RsaKeypairUtil.doRsaKeysMatch(keyPair.public, keyPair.private))
 
     }
@@ -104,6 +140,15 @@ class RsaKeypairUtilTest {
         val spec = kf.getKeySpec(key, specification)
         val encodedBytes = spec.encoded
         return Base64.getMimeEncoder().encodeToString(encodedBytes)
+    }
+
+    private fun stripKeyFromDelimiterAndWhitespaces(key: String): String {
+        return key
+            .replace("\n", "")
+            .replace("\r", "")
+
+            .replace(" ", "")
+
     }
 
 }
