@@ -11,9 +11,9 @@ data class CustomData(
      *
      * @sample "Kunden-Nr: 1234234"
      */
-    val custom1: String?,
-    val custom2: String?,
-    val custom3: String?,
-    val custom4: String?,
-    val custom5: String?,
+    val custom1: String? = null,
+    val custom2: String? = null,
+    val custom3: String? = null,
+    val custom4: String? = null,
+    val custom5: String? = null
 )
