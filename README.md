@@ -63,7 +63,7 @@ PostIdentConfiguration(
     username = "foo",
     password = "bar",
     clientId = "1234",
-    baseUrl = "https://postident-itu.deutschepost.de",
+    baseUrl = "https://postident-itu.deutschepost.de/api",
     dataPassword = "XYZABC123BC",
     privateKey = "-----BEGIN PRIVATE KEY----- /*...*/ -----END PRIVATE KEY-----",
     publicKey = "-----BEGIN PUBLIC KEY----- /*...*/ -----END PUBLIC KEY-----",

@@ -23,7 +23,7 @@ data class PostIdentConfiguration @JvmOverloads constructor(
 ) {
 
     private val signingUri = "$baseUrl/scr-signing/v2/$clientId/signingcases"
-    private val identUri = "$baseUrl/api/scr/v1/$clientId/cases"
+    private val identUri = "$baseUrl/scr/v1/$clientId/cases"
     private val sha256mac = Mac.getInstance(HMAC_SHA256)
     val rsaDecrypter: RSADecrypter
     val publicKeyHeaderValue: String
